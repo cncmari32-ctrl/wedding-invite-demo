@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brand-dark text-brand-light overflow-x-hidden;
+  }
+  
+  /* Hide scrollbar for cleaner look, but keep functionality */
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+  }
+}
+
+.clip-text {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
