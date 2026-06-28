@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Viktor &amp; Paula Wedding Invitation</title>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts for Serif and Script styles -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Great+Vibes&amp;family=Montserrat:wght@300;400&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'wedding-maroon': '#66021f',
+            'wedding-dark': '#4a0116',
+            'wedding-gold': '#d4af37',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            script: ['"Great Vibes"', 'cursive'],
+            sans: ['Montserrat', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+<style data-purpose="custom-layouts">
+    body {
+      background-color: #66021f;
+      color: #ffffff;
+    }
+    /* Jagged edge divider simulation */
+    .divider-jagged {
+      height: 60px;
+      width: 100%;
+      background-color: white;
+      mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,202.7C960,203,1056,149,1152,122.7C1248,96,1344,96,1392,96L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" fill="black"></path></svg>');
+      mask-repeat: no-repeat;
+      mask-size: cover;
+    }
+    .divider-jagged-bottom {
+      height: 60px;
+      width: 100%;
+      background-color: white;
+      mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,170.7C672,171,768,117,864,117.3C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z" fill="black"></path></svg>');
+      mask-repeat: no-repeat;
+      mask-size: cover;
+      margin-top: -1px;
+    }
+    .timeline-dot {
+      position: relative;
+    }
+    .timeline-dot::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      width: 1px;
+      height: 40px;
+      background-color: white;
+      transform: translateX(-50%);
+    }
+    .timeline-dot:last-child::after {
+      display: none;
+    }
+    .gold-frame {
+      border: 8px solid #d4af37;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+<!-- BEGIN: HeroSection -->
+<section class="relative min-h-screen flex flex-col items-center text-center pt-20 pb-20 overflow-hidden bg-wedding-maroon" id="hero">
+<!-- Darker central band background decoration -->
+<div class="absolute inset-0 flex justify-center">
+<div class="w-full max-w-lg bg-wedding-dark h-full opacity-30"></div>
+</div>
+<div class="relative z-10">
+<h2 class="font-script text-3xl mb-2 text-white italic">Wedding Day</h2>
+<p class="font-serif text-lg tracking-widest mb-16">05.07.26</p>
+<div class="space-y-4 mb-20">
+<h1 class="font-serif text-6xl md:text-8xl">Viktor</h1>
+<p class="font-script text-5xl">&amp;</p>
+<h1 class="font-serif text-6xl md:text-8xl">Paula</h1>
+</div>
+<!-- Floral Decoration -->
+<div class="mt-10 flex justify-center">
+
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: WelcomeNote -->
+<section class="bg-wedding-maroon py-20 px-6 text-center" id="welcome">
+<div class="max-w-xl mx-auto">
+<h2 class="font-script text-4xl mb-10 text-white italic">Dear Friends and Family,</h2>
+<p class="font-serif text-lg leading-relaxed mb-8 opacity-90">
+        As we get ready to say “I do,” we feel grateful for the wonderful people in our lives.
+      </p>
+<p class="font-serif text-lg leading-relaxed opacity-90">
+        Your support means the world to us, and we would be honored to have you with us as we begin our life together.
+      </p>
+</div>
+</section>
+<!-- END: WelcomeNote -->
+<!-- BEGIN: CountdownSection -->
+<div class="divider-jagged"></div>
+<section class="bg-white text-wedding-maroon py-16 px-6 text-center" id="countdown">
+<div class="max-w-4xl mx-auto">
+<h2 class="font-script text-4xl mb-12 italic">The Celebration Begins In</h2>
+<div class="flex justify-center gap-6 md:gap-12" id="timer">
+<div class="flex flex-col">
+<span class="text-4xl md:text-6xl font-serif" id="days">06</span>
+<span class="text-xs uppercase tracking-widest mt-2">Days</span>
+</div>
+<div class="text-4xl md:text-6xl font-serif">:</div>
+<div class="flex flex-col">
+<span class="text-4xl md:text-6xl font-serif" id="hours">23</span>
+<span class="text-xs uppercase tracking-widest mt-2">Hours</span>
+</div>
+<div class="text-4xl md:text-6xl font-serif">:</div>
+<div class="flex flex-col">
+<span class="text-4xl md:text-6xl font-serif" id="minutes">58</span>
+<span class="text-xs uppercase tracking-widest mt-2">Minutes</span>
+</div>
+<div class="text-4xl md:text-6xl font-serif">:</div>
+<div class="flex flex-col">
+<span class="text-4xl md:text-6xl font-serif" id="seconds">45</span>
+<span class="text-xs uppercase tracking-widest mt-2">Seconds</span>
+</div>
+</div>
+</div>
+</section>
+<div class="divider-jagged-bottom"></div>
+<!-- END: CountdownSection -->
+<!-- BEGIN: ScheduleSection -->
+<section class="bg-wedding-maroon py-20 px-6 text-center" id="schedule">
+<div class="max-w-2xl mx-auto">
+<h2 class="font-script text-4xl mb-16 italic">Schedule of Events</h2>
+<div class="space-y-12 relative flex flex-col items-center">
+<!-- Event 1 -->
+<div class="flex items-center w-full max-w-sm">
+<div class="w-1/2 text-right pr-8">
+<span class="font-serif text-2xl">16:00</span>
+</div>
+<div class="relative flex justify-center">
+<div class="w-3 h-3 bg-white rounded-full timeline-dot"></div>
+</div>
+<div class="w-1/2 text-left pl-8">
+<span class="font-serif text-lg block leading-tight">Wedding<br>Ceremony</span>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="flex items-center w-full max-w-sm">
+<div class="w-1/2 text-right pr-8">
+<span class="font-serif text-2xl">17:00</span>
+</div>
+<div class="relative flex justify-center">
+<div class="w-3 h-3 bg-white rounded-full timeline-dot"></div>
+</div>
+<div class="w-1/2 text-left pl-8">
+<span class="font-serif text-lg block leading-tight">Cocktail<br>Hour</span>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="flex items-center w-full max-w-sm">
+<div class="w-1/2 text-right pr-8">
+<span class="font-serif text-2xl">19:00</span>
+</div>
+<div class="relative flex justify-center">
+<div class="w-3 h-3 bg-white rounded-full timeline-dot"></div>
+</div>
+<div class="w-1/2 text-left pl-8">
+<span class="font-serif text-lg">Dinner</span>
+</div>
+</div>
+<!-- Event 4 -->
+<div class="flex items-center w-full max-w-sm">
+<div class="w-1/2 text-right pr-8">
+<span class="font-serif text-2xl">20:00</span>
+</div>
+<div class="relative flex justify-center">
+<div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+<svg class="w-4 h-4 text-wedding-maroon" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2L10,9L3,10L9,14L7,21L12,17L17,21L15,14L21,10L14,9L12,2Z"></path></svg>
+</div>
+</div>
+<div class="w-1/2 text-left pl-8">
+<span class="font-serif text-lg">Party</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ScheduleSection -->
+<!-- BEGIN: LocationSection -->
+<div class="divider-jagged"></div>
+<section class="bg-white text-wedding-maroon py-20 px-6 text-center" id="location">
+<div class="max-w-2xl mx-auto">
+<h2 class="font-script text-4xl mb-4 italic">Location</h2>
+<h3 class="font-serif text-2xl mb-2">Chateau de Paon</h3>
+<p class="font-serif text-sm italic mb-12 opacity-80">Address: Petit Chemin de Saint-Gilles<br>13200 Arles, France</p>
+<div class="mx-auto max-w-xl">
+<img alt="Line art sketch of Chateau de Paon" class="w-full h-auto" data-purpose="location-drawing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9sIVc53dMk4_fd-No2LTzV10sYJEwtZIOtq8Mizyw_R5-lZBuTJq43i8vauQaO_ZItTYreKoMHmyljEAkU8zkQ8SiT3-EvCFmjMpg_aexWR6jsIy3XDYrAIFnXfIIp9v60APYsP1JqFfyu-P05GaqU6iaxN4U2mY7TdeviAXHDwg6EfFpSIISVoiBj-YQ6XWl9ufGBWLHQG5T2puf4p1TyDQsO73ZJD_18qzyTdqqgqgnYt74bxhpC6q6aEWYlIewzl6r8WQxRbY">
+</div>
+</div>
+</section>
+<div class="divider-jagged-bottom"></div>
+<!-- END: LocationSection -->
+<!-- BEGIN: DressCodeSection -->
+<section class="bg-wedding-maroon py-20 px-6 text-center" id="dress-code">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-script text-4xl mb-10 italic">Dress Code</h2>
+<p class="font-serif text-lg mb-12 leading-relaxed max-w-md mx-auto">
+        We kindly invite you to dress in elegant attire that reflects the style and spirit of our special day.
+      </p>
+<!-- Color Palette -->
+<div class="flex justify-center gap-4 mb-16">
+<div class="w-12 h-12 rounded-full border border-white/20" style="background-color: #727d51;"></div>
+<div class="w-12 h-12 rounded-full border border-white/20" style="background-color: #3d2b2b;"></div>
+<div class="w-12 h-12 rounded-full border border-white/20" style="background-color: #4a4a4a;"></div>
+<div class="w-12 h-12 rounded-full border border-white/20" style="background-color: #fef4e8;"></div>
+</div>
+<!-- Specific Instructions with Image Frames -->
+<div class="grid md:grid-cols-2 gap-12 items-start text-left">
+<div class="flex flex-col items-center">
+<div class="gold-frame mb-6 w-64 h-80 overflow-hidden rotate-[-2deg]">
+<img alt="Gentlemen attire" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa1ue_Ks1wF_92qCH46Wrof2cZXiIzBlrsB6uICy8QaRxbUboyTtRfwu3rx9XMR7khCK1rwuwWoJwgrX2fTEZQE0NQH9T9LEQLwOFsQ9bUo3AWHwJX4-hKfuA9kFnhcSo-eF8dYGL0PF6QJzbTptbZBV1mZzoC2B08bnwK1BkDy_vFVsWT7Rpj0-OIipa2InbFztGRBsdv6Z-cGCSiQ5JATZYlFXES3DnWTcE7QT-mubfxWGdas_5Wnh8RHp6_C0_mNOjWfjTg5DE">
+</div>
+<p class="font-serif text-sm leading-relaxed px-4 text-center">
+<span class="block font-bold mb-2">Gentlemen:</span>
+            Well-tailored suits with classic dress shoes are preferred.
+          </p>
+</div>
+<div class="flex flex-col items-center mt-12 md:mt-24">
+<div class="gold-frame mb-6 w-64 h-80 overflow-hidden rotate-[3deg]">
+<img alt="Ladies attire" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCap42g1esJIPb_FW4NrdOjJ9a5H15Et70SxCu_iSLaa7R7qZZFsaLKuuqrWr1CKaXhqW-9at0aW7u0HdJSObhqspV3eeAhkjonzT8r73ZZLMb9ju6VtNQcOiXJcpi9zFkBB7Od9_dC1Z_ATOZ8FfiaPYUul3i1pUkyBcgen3G5Qgz-cUAjCOL_UenGOmTYk7E43-iY7qZZRPX6vqPthBfJId4ijxHxWC32YrgCogMvZ6zawSSbs_6ZIaDBtcrG2oYNRl8-5AiKxgg">
+</div>
+<p class="font-serif text-sm leading-relaxed px-4 text-center">
+<span class="block font-bold mb-2">Ladies:</span>
+            Formal dresses in elegant, polished styles are encouraged.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: DressCodeSection -->
+<!-- BEGIN: DetailsSection -->
+<div class="divider-jagged"></div>
+<section class="bg-white text-wedding-maroon py-20 px-6 text-center" id="details">
+<div class="max-w-xl mx-auto">
+<h2 class="font-script text-4xl mb-10 italic">Details</h2>
+<p class="font-serif text-lg mb-6">
+        For additional information or questions, please contact the wedding organizers.
+      </p>
+<div class="mb-12">
+<p class="font-serif text-xl font-bold">Amelia</p>
+<p class="font-serif text-lg tracking-wider">+31 6845965887</p>
+</div>
+<p class="font-serif text-sm italic leading-relaxed opacity-80 mb-16">
+        Your presence is the greatest gift to us. However, if you wish to honor us with a present, a contribution toward our future would be sincerely appreciated.
+      </p>
+<!-- Bottom Floral Ornament -->
+<div class="flex justify-center">
+
+</div>
+</div>
+</section>
+<div class="divider-jagged-bottom"></div>
+<!-- END: DetailsSection -->
+<!-- BEGIN: RSVPSection -->
+<section class="bg-wedding-maroon py-24 px-6 text-center" id="rsvp">
+<div class="max-w-xl mx-auto">
+<h2 class="font-script text-4xl mb-6 italic">Confirm Your Attendance</h2>
+<p class="font-serif text-lg mb-10 opacity-90">
+        To help us prepare for a joyful celebration, kindly confirm your attendance.
+      </p>
+<!-- Trigger Button -->
+<a class="inline-block border border-white px-12 py-3 rounded-full font-serif text-sm tracking-widest hover:bg-white hover:text-wedding-maroon transition-colors mb-20 uppercase" href="#rsvp-form">
+        RSVP
+      </a>
+<!-- RSVP Form Container -->
+<div class="bg-white text-wedding-maroon p-8 rounded-lg text-left shadow-2xl" id="rsvp-form">
+<h3 class="font-script text-3xl text-center mb-2">Confirm Your Attendance</h3>
+<p class="font-serif text-sm text-center mb-8 opacity-70 italic">Please RSVP before March 20</p>
+<form class="space-y-6">
+<div>
+<label class="block font-serif text-xs uppercase tracking-widest mb-2">Your Name</label>
+<input class="w-full border-0 border-b border-wedding-maroon focus:ring-0 px-0 py-2 placeholder-gray-300 text-lg" placeholder="John Doe" required="" type="text">
+</div>
+<div>
+<label class="block font-serif text-xs uppercase tracking-widest mb-4">Will you come?</label>
+<div class="space-y-3">
+<label class="flex items-center gap-3 font-serif cursor-pointer">
+<input class="text-wedding-maroon focus:ring-wedding-maroon h-4 w-4 border-gray-300" name="attendance" required="" type="radio" value="yes">
+<span class="">Yes, I will</span>
+</label>
+<label class="flex items-center gap-3 font-serif cursor-pointer">
+<input class="text-wedding-maroon focus:ring-wedding-maroon h-4 w-4 border-gray-300" name="attendance" type="radio" value="no">
+<span class="">Unfortunately, I can't :(</span>
+</label>
+</div>
+</div>
+<div>
+<label class="block font-serif text-xs uppercase tracking-widest mb-2">Do you have any food intolerances?</label>
+<textarea class="w-full border-wedding-maroon/20 focus:border-wedding-maroon focus:ring-wedding-maroon rounded-md" placeholder="Please let us know..." rows="3"></textarea>
+</div>
+<div class="pt-4">
+<button class="w-full bg-wedding-maroon text-white font-serif py-4 tracking-widest uppercase text-sm hover:bg-wedding-dark transition-colors" type="submit">
+              Submit
+            </button>
+</div>
+</form>
+</div>
+</div>
+</section>
+<!-- END: RSVPSection -->
+<!-- BEGIN: FooterSection -->
+<section class="bg-wedding-dark py-24 px-6 text-center" id="footer">
+<h2 class="font-script text-4xl mb-4 italic">Hope to see you there!</h2>
+<p class="font-serif text-xl tracking-widest mb-16">Viktor and Paula</p>
+<div class="max-w-md mx-auto aspect-square overflow-hidden rounded-sm">
+
+</div>
+</section>
+<!-- END: FooterSection -->
+<script data-purpose="countdown-logic">
+    // Simple countdown logic
+    function updateCountdown() {
+      const targetDate = new Date("July 5, 2026 16:00:00").getTime();
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = d.toString().padStart(2, '0');
+        document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+        document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
+        document.getElementById('seconds').innerText = s.toString().padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+
+
+</body></html>
