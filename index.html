@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script>
       z-index: 2147483647 !important;
       background-color: rgba(10, 10, 10, 0.4) !important;
       backdrop-filter: blur(8px) !important; /* premium frosted glass backdrop */
+      overflow: hidden !important;
     }
     #rec2195253293 .t-popup_show {
       display: flex !important;
@@ -53,14 +54,17 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script>
       justify-content: center !important;
     }
     #rec2195253293 .t-popup__container {
-      margin: auto !important;
+      margin: 10px auto !important;
       width: calc(100% - 32px) !important;
       max-width: 480px !important;
+      max-height: calc(100vh - 40px) !important;
       background-color: #ffffff !important;
       border-radius: 30px !important;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-      overflow: hidden !important;
+      overflow-y: auto !important; /* Enable internal scrolling on small screens */
+      overflow-x: hidden !important;
       position: relative !important;
+      -webkit-overflow-scrolling: touch !important; /* smooth iOS inertia scrolling */
     }
     #rec2195253293 .t-popup__close {
       position: absolute !important;
@@ -73,6 +77,32 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script>
     }
     #rec2195253293 .t702__wrapper {
       padding: 30px 20px !important;
+    }
+    #rec2195253293 .t702__img {
+      max-height: 220px !important;
+      object-fit: cover !important;
+      width: 100% !important;
+    }
+
+    /* Prevent mobile safari automatic form zooming & adjust image sizing for small screens */
+    @media screen and (max-width: 640px) {
+      #rec2195253293 .t-popup__container {
+        max-height: calc(100vh - 20px) !important;
+        margin: 10px auto !important;
+        border-radius: 20px !important;
+      }
+      #rec2195253293 .t702__img {
+        max-height: 140px !important; /* more compact on mobile to show inputs above the fold */
+      }
+      #rec2195253293 .t702__wrapper {
+        padding: 20px 15px !important;
+      }
+      #rec2195253293 input,
+      #rec2195253293 select,
+      #rec2195253293 textarea,
+      #rec2195253293 .t-input {
+        font-size: 16px !important; /* iOS requires >= 16px font-size to prevent automatic page zoom-in on focus */
+      }
     }
 
     /* Keep the background video card fully visible on mobile breakpoints */
