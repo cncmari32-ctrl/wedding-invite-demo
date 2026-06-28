@@ -173,43 +173,62 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
               return;
             }
 
-            // A. Save to LocalStorage guest registry (for love2027 dashboard!)
+            // Change button to show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+            if (submitBtn) submitBtn.innerHTML = '<span class="t-btnflex__text">Sending...</span>';
+
+            // Google Sheets Integration (Replace YOUR_GOOGLE_SCRIPT_URL with your actual Web App URL)
+            const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_URL";
+
+            // Save to LocalStorage as backup
             const rsvpEntry = {
               id: Math.random().toString(36).substring(2, 9),
               name: name,
               attending: attending.toLowerCase().includes('yes') ? 'yes' : 'no',
-              plusOne: 'no',
-              meal: 'beef',
               dietary: intolerance,
-              message: 'Tilda RSVP popup',
               submittedAt: new Date().toLocaleString()
             };
-
             const existing = localStorage.getItem('wedding_rsvps');
             const list = existing ? JSON.parse(existing) : [];
             list.push(rsvpEntry);
             localStorage.setItem('wedding_rsvps', JSON.stringify(list));
 
-            // B. Direct WhatsApp Redirect
-            const phoneNumber = "1234567890";
-            let messageText = '*RSVP for Alexa & Richard\'s Wedding*%0A%0A';
-            messageText += '*Guest:* ' + encodeURIComponent(name) + '%0A';
-            messageText += '*Will you come:* ' + encodeURIComponent(attending) + '%0A';
-            if (intolerance) {
-              messageText += '*Intolerances:* ' + encodeURIComponent(intolerance) + '%0A';
-            }
-
-            // C. Show Tilda standard Form Success State box inline!
-            const successBox = form.querySelector('.js-successbox') || form.parentElement.querySelector('.t-form__successbox');
-            if (successBox) {
-              successBox.style.display = 'block';
-              form.style.display = 'none';
+            // Send to Google Sheet
+            if (GOOGLE_SCRIPT_URL !== "YOUR_GOOGLE_SCRIPT_URL") {
+              fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  name: name,
+                  attending: attending,
+                  dietary: intolerance
+                })
+              }).then(() => {
+                showSuccess();
+              }).catch(err => {
+                console.error('Error sending RSVP', err);
+                showSuccess(); // still show success since we saved to local storage
+              });
             } else {
-              alert('Thank you! Your response was successfully recorded.');
+              // If no URL is set, just show success directly
+              showSuccess();
             }
 
-            // D. Open WhatsApp in new tab
-            window.open('https://wa.me/' + phoneNumber + '?text=' + messageText, '_blank');
+            function showSuccess() {
+              if (submitBtn) submitBtn.innerHTML = originalBtnText;
+              // C. Show Tilda standard Form Success State box inline!
+              const successBox = form.querySelector('.js-successbox') || form.parentElement.querySelector('.t-form__successbox');
+              if (successBox) {
+                successBox.style.display = 'block';
+                form.style.display = 'none';
+              } else {
+                alert('Thank you! Your response was successfully recorded.');
+              }
+            }
           });
         }
       }, 1000);
