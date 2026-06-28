@@ -337,6 +337,12 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
         carrier.style.backgroundImage = 'none';
         carrier.style.backgroundColor = '#121212';
         
+        // Remove any solid colored overlay filters that would block the video
+        const filter = document.querySelector('[data-artboard-recid="2047601243"] .t396__filter');
+        if (filter) {
+          filter.style.cssText = 'background: transparent !important; opacity: 0 !important;';
+        }
+        
         const myVideo = document.createElement('video');
         myVideo.id = 'bgVideo2';
         myVideo.muted = true;
@@ -353,8 +359,10 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
         myVideo.style.opacity = '1';
         myVideo.preload = 'auto';
         
+        // Dynamically resolve base assets directory to support local testing and GitHub Pages
+        const baseDir = window.location.pathname.includes('/wedding-invite-demo') ? '/wedding-invite-demo/' : '/';
         const source = document.createElement('source');
-        source.src = "/wedding-invite-demo/assets/scroll-video.mp4";
+        source.src = baseDir + "assets/scroll-video.mp4";
         source.type = "video/mp4";
         myVideo.appendChild(source);
         
@@ -370,13 +378,18 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
           if (!section || !myVideo.duration) return;
           const rect = section.getBoundingClientRect();
           const viewportHeight = window.innerHeight;
+          const sectionHeight = rect.height;
+          const sectionTopOnPage = rect.top + window.scrollY;
           
-          // Calculate progress through the section
-          // Starts when section top enters viewport bottom, ends when section bottom leaves viewport top
-          const sectionStart = rect.top - viewportHeight;
-          const scrollRange = rect.height + viewportHeight;
-          
-          let progress = -sectionStart / scrollRange;
+          let progress = 0;
+          if (sectionTopOnPage < viewportHeight) {
+            // First section of the page (starts above the fold)
+            progress = window.scrollY / sectionHeight;
+          } else {
+            // Below the fold sections
+            const startScroll = sectionTopOnPage - viewportHeight;
+            progress = (window.scrollY - startScroll) / (sectionHeight + viewportHeight);
+          }
           progress = Math.max(0, Math.min(1, progress)); // clamp between 0 and 1
           
           targetTime = progress * myVideo.duration;
@@ -385,7 +398,7 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
         function updateScrub() {
           if (myVideo.duration) {
             // Linear interpolation (lerp) for liquid smoothness
-            currentTime += (targetTime - currentTime) * 0.1; 
+            currentTime += (targetTime - currentTime) * 0.12; 
             if (Math.abs(currentTime - myVideo.currentTime) > 0.01) {
               myVideo.currentTime = currentTime;
             }
