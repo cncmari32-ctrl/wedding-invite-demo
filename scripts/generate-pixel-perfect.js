@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Unique Asset Pixel Perfect Cloner with GSAP & Robust Regex Google Maps...');
+  console.log('Initiating Unique Asset Pixel Perfect Cloner with GSAP & Google Maps...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -122,13 +122,14 @@ async function run() {
   html = html.replace(/data-elem-id='1776876503947' data-elem-type='image'[^>]*data-animate-sbs-event="scroll"/, "data-elem-id='1776876503947' data-elem-type='image' data-animate-sbs-event='none'");
   html = html.replace(/data-elem-id='1776876608318000001' data-elem-type='image'[^>]*data-animate-sbs-event="scroll"/, "data-elem-id='1776876608318000001' data-elem-type='image' data-animate-sbs-event='none'");
 
-  // Load GSAP & ScrollTrigger directly for buttery-smooth animations in index.html
-  console.log('Injecting high-performance GSAP & ScrollTrigger headers...');
-  const gsapCDNs = `
+  // Load standard jQuery and high-performance GSAP & ScrollTrigger headers directly
+  console.log('Injecting high-performance jQuery, GSAP & ScrollTrigger headers...');
+  const headCDNs = `
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   `;
-  html = html.replace('</head>', `${gsapCDNs}</head>`);
+  html = html.replace('</head>', `${headCDNs}</head>`);
 
   // Optimize script loading tags to defer sequentially
   html = html.split('async charset="utf-8"').join('defer charset="utf-8"');
@@ -137,7 +138,7 @@ async function run() {
   html = html.replace(/'([a-zA-Z-]+)=/g, "' $1=");
   html = html.replace(/"([a-zA-Z-]+)=/g, '" $1=');
 
-  // Inject custom scroll video play trigger AND GSAP scroll clouds timeline
+  // Inject custom scroll video play trigger, GSAP scroll clouds, AND direct fully-functional RSVP popup form submit intercept!
   const scrollTriggerScripts = `
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -157,7 +158,6 @@ async function run() {
       }
 
       // 2. Buttery Smooth GSAP ScrollTrigger for Timeline Clouds
-      // 100% Hardware-Accelerated Sliding motion as user scrolls down!
       if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
@@ -185,6 +185,71 @@ async function run() {
           }
         });
       }
+
+      // 3. Fully Functional RSVP Form Submission Hook (LocalStorage database + WhatsApp redirect!)
+      setTimeout(function() {
+        const form = document.getElementById('form2195253293');
+        if (form) {
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Extract values
+            const nameInput = document.getElementById('input_2221855674630');
+            const name = nameInput ? nameInput.value.trim() : '';
+            
+            // Extract selected attendance
+            const checkedBoxes = Array.from(form.querySelectorAll('.t-checkbox:checked'));
+            const attending = checkedBoxes.map(cb => cb.value).join(', ') || 'Yes, I will';
+            
+            // Extract dietary
+            const dietaryInput = document.getElementById('input_2221855674632');
+            const intolerance = dietaryInput ? dietaryInput.value.trim() : '';
+            
+            if (!name) {
+              alert('Please enter your full name.');
+              return;
+            }
+
+            // A. Save to LocalStorage guest registry (for love2027 dashboard!)
+            const rsvpEntry = {
+              id: Math.random().toString(36).substring(2, 9),
+              name: name,
+              attending: attending.toLowerCase().includes('yes') ? 'yes' : 'no',
+              plusOne: 'no',
+              meal: 'beef',
+              dietary: intolerance,
+              message: 'Tilda RSVP popup',
+              submittedAt: new Date().toLocaleString()
+            };
+
+            const existing = localStorage.getItem('wedding_rsvps');
+            const list = existing ? JSON.parse(existing) : [];
+            list.push(rsvpEntry);
+            localStorage.setItem('wedding_rsvps', JSON.stringify(list));
+
+            // B. Direct WhatsApp Redirect
+            const phoneNumber = "1234567890";
+            let messageText = '*RSVP for Charlotte & William\\'s Wedding*%0A%0A';
+            messageText += '*Guest:* ' + encodeURIComponent(name) + '%0A';
+            messageText += '*Will you come:* ' + encodeURIComponent(attending) + '%0A';
+            if (intolerance) {
+              messageText += '*Intolerances:* ' + encodeURIComponent(intolerance) + '%0A';
+            }
+
+            // C. Show Tilda standard Form Success State box inline!
+            const successBox = form.querySelector('.js-successbox') || form.parentElement.querySelector('.t-form__successbox');
+            if (successBox) {
+              successBox.style.display = 'block';
+              form.style.display = 'none';
+            } else {
+              alert('Thank you! Your response was successfully recorded.');
+            }
+
+            // D. Open WhatsApp in new tab
+            window.open('https://wa.me/' + phoneNumber + '?text=' + messageText, '_blank');
+          });
+        }
+      }, 1000);
     });
   </script>
   `;
@@ -195,7 +260,7 @@ async function run() {
 
   const outHtmlPath = path.join(PROJECT_DIR, 'index.html');
   fs.writeFileSync(outHtmlPath, html);
-  console.log(`✅ Success! Strict Unique Clean generated with Google Maps at ${outHtmlPath}`);
+  console.log(`✅ Success! Strict Unique Clean generated with Google Maps & RSVP Hooks at ${outHtmlPath}`);
 }
 
 run();
