@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Unique Asset Pixel Perfect Cloner...');
+  console.log('Initiating Unique Asset Pixel Perfect Cloner with GSAP ScrollTrigger...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -75,7 +75,7 @@ async function run() {
 
   html = html.replace(/https:\/\/static\.tildacdn\.net\/css\/tilda-grid-3\.0\.min\.css/g, './assets/tilda-grid-3.0.min.css');
 
-  // Replace photos
+  // Replace photos with premium custom placeholders
   const customPhotos = {
     'tild3862-3630-4035-b331-383335383439_romantic-moments-bea.jpg': 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
     'tild3965-6266-4165-b837-303236623330_elegant-couple-love-.jpg': 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop',
@@ -104,22 +104,26 @@ async function run() {
   html = html.replace(/<span class="tdr-num">14<\/span>/g, '<span class="tdr-num">20</span>');
   html = html.replace(/<span class="tdr-num">2025<\/span>/g, '<span class="tdr-num">2027</span>');
 
-  // STRICT PARSE ERROR & SCRIPT ORDER FIX:
-  // We change 'async' to 'defer' on all script tags to guarantee correct sequential loading!
-  console.log('Optimizing script loading sequence for 100% animation fidelity...');
+  // Load GSAP & ScrollTrigger directly for buttery-smooth animations in index.html
+  console.log('Injecting high-performance GSAP & ScrollTrigger headers...');
+  const gsapCDNs = `
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  `;
+  html = html.replace('</head>', `${gsapCDNs}</head>`);
+
+  // Optimize script loading tags to defer sequentially
   html = html.replace(/async\s+charset="utf-8"/g, 'defer charset="utf-8"');
   
   // Fixing strict HTML attribute spacing to satisfy Vite
   html = html.replace(/'([a-zA-Z-]+)=/g, "' $1=");
   html = html.replace(/"([a-zA-Z-]+)=/g, '" $1=');
 
-  // Inject custom scroll video play trigger AND local fail-safe smooth parallax scroll clouds!
-  // If Tilda's engine doesn't fire, this script will run as a pristine native fallback
-  // driving the timeline cloud-reveal beautifully on scroll!
+  // Inject custom scroll video play trigger AND GSAP scroll clouds timeline
   const scrollTriggerScripts = `
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 1. Video Scroll Control
+      // 1. Video Scroll Control (plays when scrolling, pauses when idle)
       const video = document.getElementById('bgVideo2');
       if (video) {
         let scrollTimeout;
@@ -134,39 +138,34 @@ async function run() {
         }, { passive: true });
       }
 
-      // 2. Timeline Cloud Parallax & Reveal Motion Fallback
-      // This directly moves the left-side and right-side branch assets as the user scrolls!
-      const leftCloud = document.querySelector('[data-elem-id="1776876608318000001"]');
-      const rightCloud = document.querySelector('[data-elem-id="1776878815963000001"]');
-      
-      if (leftCloud || rightCloud) {
-        window.addEventListener('scroll', function() {
-          const scrollY = window.scrollY;
-          const windowHeight = window.innerHeight;
-          
-          // Calculate parallax factors
-          if (leftCloud) {
-            const leftRect = leftCloud.getBoundingClientRect();
-            if (leftRect.top < windowHeight && leftRect.bottom > 0) {
-              const progress = (windowHeight - leftRect.top) / (windowHeight + leftRect.height);
-              // Slide in from the left as we scroll down
-              const offset = -400 + (progress * 400);
-              leftCloud.style.transform = 'translateX(' + Math.min(0, offset) + 'px)';
-              leftCloud.style.transition = 'transform 0.1s ease-out';
-            }
+      // 2. Buttery Smooth GSAP ScrollTrigger for Timeline Clouds
+      // 100% Hardware-Accelerated Sliding motion as user scrolls down!
+      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Right-sliding cloud (originally slides +700px to reveal)
+        gsap.to('[data-elem-id="1776876503947"]', {
+          x: 650,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: '#rec2191866633',
+            start: 'top 85%',
+            end: 'bottom 15%',
+            scrub: 1 // subtle smoothing lag
           }
-          
-          if (rightCloud) {
-            const rightRect = rightCloud.getBoundingClientRect();
-            if (rightRect.top < windowHeight && rightRect.bottom > 0) {
-              const progress = (windowHeight - rightRect.top) / (windowHeight + rightRect.height);
-              // Slide in from the right as we scroll down
-              const offset = 400 - (progress * 400);
-              rightCloud.style.transform = 'translateX(' + Math.max(0, offset) + 'px)';
-              rightCloud.style.transition = 'transform 0.1s ease-out';
-            }
+        });
+
+        // Left-sliding cloud (originally slides -690px to reveal)
+        gsap.to('[data-elem-id="1776876608318000001"]', {
+          x: -650,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: '#rec2191866633',
+            start: 'top 85%',
+            end: 'bottom 15%',
+            scrub: 1
           }
-        }, { passive: true });
+        });
       }
     });
   </script>
@@ -178,7 +177,7 @@ async function run() {
 
   const outHtmlPath = path.join(PROJECT_DIR, 'index.html');
   fs.writeFileSync(outHtmlPath, html);
-  console.log(`✅ Success! Strict Unique Clean generated at ${outHtmlPath}`);
+  console.log(`✅ Success! Strict Unique Clean generated with GSAP timelines at ${outHtmlPath}`);
 }
 
 run();
