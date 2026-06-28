@@ -166,6 +166,20 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
       setTimeout(function() {
         const form = document.getElementById('form2195253293');
         if (form) {
+          // Make checkboxes behave like radio buttons (selecting one unchecks the others)
+          const checkboxes = form.querySelectorAll('.t-checkbox');
+          checkboxes.forEach(cb => {
+            cb.addEventListener('change', function() {
+              if (this.checked) {
+                checkboxes.forEach(other => {
+                  if (other !== this) {
+                    other.checked = false;
+                  }
+                });
+              }
+            });
+          });
+
           form.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -175,7 +189,11 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
             
             // Extract selected attendance
             const checkedBoxes = Array.from(form.querySelectorAll('.t-checkbox:checked'));
-            const attending = checkedBoxes.map(cb => cb.value).join(', ') || 'Yes, I will';
+            if (checkedBoxes.length === 0) {
+              alert('Please select whether you will attend.');
+              return;
+            }
+            const attending = checkedBoxes[0].value;
             
             // Extract dietary
             const dietaryInput = document.getElementById('input_2221855674632');
