@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // We use a high-end cinematic stock video for the demo.
 // Once you run your Veo script, replace this URL with your generated video!
-const DEMO_VIDEO_URL = "./assets/veo-background.mp4";
+const DEMO_VIDEO_URL = `${import.meta.env.BASE_URL}assets/veo-background.mp4`;
 
 const VideoBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);

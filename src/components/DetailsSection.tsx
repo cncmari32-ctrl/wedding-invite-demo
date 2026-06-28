@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-const IMG_VENUE = "assets/lake-venue.jpg";
-const IMG_DETAILS = "assets/silk-texture.jpg";
+const IMG_VENUE = `${import.meta.env.BASE_URL}assets/lake-venue.jpg`;
+const IMG_DETAILS = `${import.meta.env.BASE_URL}assets/silk-texture.jpg`;
 
 const DetailsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
