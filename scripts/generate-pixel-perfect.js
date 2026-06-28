@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Unique Asset Pixel Perfect Cloner with Absolute Paths & Centered RSVP...');
+  console.log('Initiating 100% Identical Tilda Cloner with Absolute Paths & Centered RSVP...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -91,18 +91,8 @@ async function run() {
     }
   }
 
-  // SURGICAL replacement of couple names & dates
-  console.log('Surgically replacing couple names and dates inside HTML...');
-  html = html.split('<title>Alexa &amp; Richard</title>').join('<title>Charlotte &amp; William</title>');
-  html = html.split('<title>Alexa & Richard</title>').join('<title>Charlotte & William</title>');
-  html = html.split('content="Alexa &amp; Richard"').join('content="Charlotte &amp; William"');
-  html = html.split('content="Alexa & Richard"').join('content="Charlotte & William"');
-  html = html.split('>Alexa &amp; Richard</div>').join('>Charlotte &amp; William</div>');
-  html = html.split('>Alexa & Richard</div>').join('>Charlotte & William</div>');
-  html = html.split('>Alexa &amp; Richard</span>').join('>Charlotte &amp; William</span>');
-  html = html.split('>Alexa & Richard</span>').join('>Charlotte & William</span>');
-  html = html.split('<span class="tdr-num">14</span>').join('<span class="tdr-num">20</span>');
-  html = html.split('<span class="tdr-num">2025</span>').join('<span class="tdr-num">2027</span>');
+  // NO NAME REPLACEMENTS: We keep the exact names (Alexa & Richard) and date (14 September 2025) as requested!
+  console.log('Keeping original names (Alexa & Richard) and date (14 September 2025)...');
 
   // INTERACTIVE GOOGLE MAP REPLACEMENT
   console.log('Injecting Google Map iframe into the Wedding Venue card container...');
@@ -312,7 +302,7 @@ async function run() {
 
             // B. Direct WhatsApp Redirect
             const phoneNumber = "1234567890";
-            let messageText = '*RSVP for Charlotte & William\\'s Wedding*%0A%0A';
+            let messageText = '*RSVP for Alexa & Richard\\'s Wedding*%0A%0A';
             messageText += '*Guest:* ' + encodeURIComponent(name) + '%0A';
             messageText += '*Will you come:* ' + encodeURIComponent(attending) + '%0A';
             if (intolerance) {
