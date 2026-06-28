@@ -1,5 +1,4 @@
-import { useRef } from "react";
-
+import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -11,40 +10,43 @@ const HeroOverlay = () => {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=1000",
+        end: "bottom top",
         scrub: true,
       }
     });
 
-    // Fade out and move up the hero text as we scroll down
-    tl.to(".hero-text", {
-      y: -100,
+    // Elegant scroll fade
+    tl.to(".hero-element", {
+      y: -150,
       opacity: 0,
-      stagger: 0.1,
-      ease: "power1.inOut"
+      stagger: 0.05,
+      ease: "power2.inOut"
     });
 
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 text-center px-6">
-      <div className="overflow-hidden mb-6">
-        <p className="hero-text font-sans tracking-[0.3em] text-xs uppercase text-brand-accent/80">
-          The Wedding Celebration Of
-        </p>
-      </div>
-      
-      <div className="overflow-hidden">
-        <h1 className="hero-text font-serif text-6xl md:text-8xl lg:text-9xl tracking-tight leading-none">
-          Sarah <span className="text-brand-accent italic font-light">&</span> John
-        </h1>
-      </div>
+    <div ref={containerRef} className="relative z-10 w-full h-svh flex flex-col justify-end pb-24 px-8 md:px-16 lg:px-32">
+      <div className="max-w-4xl">
+        <div className="overflow-hidden mb-8">
+          <p className="hero-element font-sans tracking-[0.4em] text-xs md:text-sm uppercase text-brand-accent/80">
+            The Wedding Celebration Of
+          </p>
+        </div>
+        
+        <div className="overflow-hidden">
+          <h1 className="hero-element font-serif text-7xl md:text-9xl lg:text-[10rem] tracking-tighter leading-[0.9] font-light">
+            Sarah <br/>
+            <span className="text-brand-accent italic pr-6">&</span> John
+          </h1>
+        </div>
 
-      <div className="overflow-hidden mt-12">
-        <p className="hero-text font-sans tracking-widest text-sm uppercase text-white/60">
-          Scroll to enter
-        </p>
-        <div className="hero-text w-[1px] h-12 bg-white/20 mx-auto mt-4 origin-top" />
+        <div className="hero-element mt-16 flex items-center gap-6">
+          <div className="w-12 h-[1px] bg-white/30" />
+          <p className="font-sans tracking-widest text-xs uppercase text-white/50">
+            October 2026 • Lake Como
+          </p>
+        </div>
       </div>
     </div>
   );
