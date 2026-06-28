@@ -104,6 +104,11 @@ async function run() {
   html = html.replace(/<span class="tdr-num">14<\/span>/g, '<span class="tdr-num">20</span>');
   html = html.replace(/<span class="tdr-num">2025<\/span>/g, '<span class="tdr-num">2027</span>');
 
+  // BYPASS Tilda's SBS script for these two cloud elements so they don't fight with GSAP ScrollTrigger over transform properties!
+  console.log('Bypassing Tilda SBS on cloud elements to give GSAP 100% exclusive smooth control...');
+  html = html.replace(/data-elem-id='1776876503947' data-elem-type='image'[^>]*data-animate-sbs-event="scroll"/, "data-elem-id='1776876503947' data-elem-type='image' data-animate-sbs-event='none'");
+  html = html.replace(/data-elem-id='1776876608318000001' data-elem-type='image'[^>]*data-animate-sbs-event="scroll"/, "data-elem-id='1776876608318000001' data-elem-type='image' data-animate-sbs-event='none'");
+
   // Load GSAP & ScrollTrigger directly for buttery-smooth animations in index.html
   console.log('Injecting high-performance GSAP & ScrollTrigger headers...');
   const gsapCDNs = `
@@ -143,7 +148,7 @@ async function run() {
       if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Right-sliding cloud (originally slides +700px to reveal)
+        // Right-sliding cloud (slides +650px to reveal)
         gsap.to('[data-elem-id="1776876503947"]', {
           x: 650,
           ease: 'power1.out',
@@ -155,7 +160,7 @@ async function run() {
           }
         });
 
-        // Left-sliding cloud (originally slides -690px to reveal)
+        // Left-sliding cloud (slides -650px to reveal)
         gsap.to('[data-elem-id="1776876608318000001"]', {
           x: -650,
           ease: 'power1.out',
