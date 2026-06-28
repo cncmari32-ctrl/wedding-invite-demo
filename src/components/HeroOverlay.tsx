@@ -1,51 +1,55 @@
 import { useRef } from 'react';
-import ScratchReveal from './ScratchReveal';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
-export default function HeroOverlay() {
+const HeroOverlay = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+
+    // Elegant scroll fade-out on the hero element text
+    tl.to(".hero-element", {
+      y: -150,
+      opacity: 0,
+      stagger: 0.05,
+      ease: "power2.inOut"
+    });
+
+  }, { scope: containerRef });
+
   return (
-    <div ref={containerRef} className="relative w-full py-24 px-6 text-center space-y-16">
-      
-      {/* Decorative top branch floral element */}
-      <div className="flex justify-center select-none animate-floral">
-        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="40" viewBox="0 0 100 60" fill="none" stroke="#8d7a6b" strokeWidth="1" strokeLinecap="round">
-          <path d="M50 10 C35 25, 20 20, 10 30" />
-          <path d="M50 10 C65 25, 80 20, 90 30" />
-          <path d="M50 10 C50 30, 45 45, 50 55" />
-          <circle cx="10" cy="30" r="2" fill="#8d7a6b" />
-          <circle cx="90" cy="30" r="2" fill="#8d7a6b" />
-          <circle cx="50" cy="55" r="2" fill="#8d7a6b" />
-        </svg>
-      </div>
+    <div ref={containerRef} className="relative z-10 w-full h-svh flex flex-col justify-end pb-24 px-8 md:px-16 lg:px-32 pointer-events-none">
+      <div className="max-w-4xl">
+        <div className="overflow-hidden mb-8">
+          <p className="hero-element font-sans tracking-[0.4em] text-xs md:text-sm uppercase text-brand-accent/80">
+            The Wedding Celebration Of
+          </p>
+        </div>
+        
+        <div className="overflow-hidden">
+          <h1 className="hero-element font-serif text-7xl md:text-9xl lg:text-[10rem] tracking-tighter leading-[0.9] font-light text-white">
+            Alexa <br/>
+            <span className="text-brand-accent italic pr-6">&</span> Richard
+          </h1>
+        </div>
 
-      <div className="space-y-6">
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-tilda-text font-light tracking-tight leading-none">
-          Alexa <br/>
-          <span className="text-tilda-accent italic font-light">&</span> Richard
-        </h1>
-        <p className="font-sans text-xs md:text-sm tracking-[0.3em] uppercase text-tilda-accent font-semibold">
-          are getting married!
-        </p>
+        <div className="hero-element mt-16 flex items-center gap-6">
+          <div className="w-12 h-[1px] bg-white/30" />
+          <p className="font-sans tracking-widest text-xs uppercase text-white/50">
+            September 14, 2027 • Nantes, France
+          </p>
+        </div>
       </div>
-
-      {/* Date scratch off section */}
-      <div className="space-y-6 max-w-sm mx-auto">
-        <ScratchReveal />
-        <p className="font-serif text-xs italic text-tilda-accent/80 animate-pulse">
-          ✦ Scratch to reveal the wedding date ✦
-        </p>
-      </div>
-
-      {/* Envelope graphic decorative divider */}
-      <div className="flex justify-center select-none pt-6">
-        <img 
-          src="https://thb.tildacdn.net/tild3132-3666-4637-a562-616361623963/-/resize/20x/Old_Open_Envelope_PN.png" 
-          alt="Vintage Envelope Decor" 
-          className="w-12 opacity-60"
-        />
-      </div>
-
     </div>
   );
-}
+};
+
+export default HeroOverlay;
