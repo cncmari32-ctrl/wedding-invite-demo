@@ -5,14 +5,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const VIDEO_URL = `${import.meta.env.BASE_URL}assets/veo-background.mp4`;
+// The beautiful original video loop with the lake/ocean, terrace, sun, and door opening view!
+const VIDEO_URL = "https://pub-4dc8201144ca418fb604349c73e8c724.r2.dev/Italian_villa_terrace_202604231419%20(1).MP4";
 
 const VideoBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useGSAP(() => {
-    // Elegant soft parallax scrolling
+    // Elegant soft parallax scrolling for cinematic depth
     gsap.to(videoRef.current, {
       yPercent: 20,
       ease: "none",
@@ -28,8 +29,8 @@ const VideoBackground = () => {
   return (
     <div ref={containerRef} className="fixed inset-0 w-full h-svh z-0 bg-[#0a0a0a] overflow-hidden pointer-events-none">
       {/* 
-        This plays your custom, photorealistic Veo-generated background video (champagne silk rippling).
-        It sits as an incredibly fluid, gorgeous full-screen animated backdrop loop.
+        This plays the stunning, photorealistic original video loop showing the romantic Italian villa, 
+        terrace arches (like an open door), the sun, and the beautiful blue lake/ocean water of Lake Como.
       */}
       <video 
         ref={videoRef}
@@ -38,7 +39,7 @@ const VideoBackground = () => {
         loop 
         muted 
         playsInline
-        className="absolute inset-0 w-full h-[120%] object-cover opacity-50 mix-blend-screen scale-105"
+        className="absolute inset-0 w-full h-[120%] object-cover opacity-60 mix-blend-screen scale-105"
         style={{ top: '-10%' }}
       />
       
