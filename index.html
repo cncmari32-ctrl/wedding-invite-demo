@@ -323,20 +323,69 @@ cx.restore();p.y+=p.vy;p.x+=p.vx+Math.sin(p.drift)*0.4;p.rot+=p.rv;p.drift+=p.ds
 window.addEventListener('resize',function() {const cc=document.getElementById('tdr-confetti');cc.width=window.innerWidth;cc.height=window.innerHeight;});})();</script> 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 1. Video Scroll Control (plays when scrolling, pauses when idle)
-      const video = document.getElementById('bgVideo2');
-      if (video) {
-        let scrollTimeout;
-        window.addEventListener('scroll', function() {
-          if (video.paused) {
-            video.play().catch(() => {});
+      // 1. Fully-Interpoloated High-Performance Scroll-Scrubbing Video Engine!
+      // Dynamically intercepts Tilda's background video and binds its playback frame-by-frame to the user's scroll.
+      let checkCount = 0;
+      const videoInterval = setInterval(function() {
+        const video = document.getElementById('bgVideo2');
+        checkCount++;
+        if (video) {
+          clearInterval(videoInterval);
+          
+          // Swap the source to our newly uploaded luxurious video file!
+          video.src = "/wedding-invite-demo/assets/scroll-video.mp4";
+          video.load();
+          
+          // Force optimal attributes for scrubbing
+          video.removeAttribute('autoplay');
+          video.removeAttribute('loop');
+          video.muted = true;
+          video.playsInline = true;
+          video.setAttribute('playsinline', '');
+          video.setAttribute('webkit-playsinline', '');
+          video.currentTime = 0;
+          
+          // Smooth Interpolated Frame Scrubbing (prevents browser jitters!)
+          let targetTime = 0;
+          let currentTime = 0;
+          
+          // Target section that contains the video
+          const section = document.querySelector('[data-artboard-recid="2047601243"]') || video.closest('.r') || video.parentElement;
+          
+          window.addEventListener('scroll', function() {
+            if (!section) return;
+            const rect = section.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            
+            // Calculate progress through the section
+            // Starts when section top enters viewport bottom, ends when section bottom leaves viewport top
+            const sectionStart = rect.top - viewportHeight;
+            const scrollRange = rect.height + viewportHeight;
+            
+            let progress = -sectionStart / scrollRange;
+            progress = Math.max(0, Math.min(1, progress)); // clamp between 0 and 1
+            
+            if (video.duration) {
+              targetTime = progress * video.duration;
+            }
+          }, { passive: true });
+          
+          function updateScrub() {
+            if (video.duration) {
+              // Linear interpolation (lerp) for liquid smoothness
+              currentTime += (targetTime - currentTime) * 0.12; 
+              if (Math.abs(currentTime - video.currentTime) > 0.01) {
+                video.currentTime = currentTime;
+              }
+            }
+            requestAnimationFrame(updateScrub);
           }
-          clearTimeout(scrollTimeout);
-          scrollTimeout = setTimeout(() => {
-            video.pause();
-          }, 150);
-        }, { passive: true });
-      }
+          requestAnimationFrame(updateScrub);
+        } else if (checkCount > 100) {
+          // Fallback if video takes too long to mount
+          clearInterval(videoInterval);
+        }
+      }, 50);
 
       // 2. Buttery Smooth GSAP ScrollTrigger for Timeline Clouds
       if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {

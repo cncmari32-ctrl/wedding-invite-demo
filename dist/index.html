@@ -47,21 +47,240 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script>
       z-index: 2147483647 !important;
       background-color: rgba(10, 10, 10, 0.4) !important;
       backdrop-filter: blur(8px) !important; /* premium frosted glass backdrop */
+      overflow: hidden !important;
     }
     #rec2195253293 .t-popup_show {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
     }
-    #rec2195253293 .t702__wrapper {
-      margin: auto !important;
+    #rec2195253293 .t-popup__container {
+      margin: 10px auto !important;
       width: calc(100% - 32px) !important;
       max-width: 480px !important;
+      max-height: calc(100vh - 40px) !important;
+      background-color: #ffffff !important;
       border-radius: 30px !important;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-      background-color: #ffffff !important;
-      padding: 12px !important;
+      overflow-y: auto !important; /* Enable internal scrolling on small screens */
+      overflow-x: hidden !important;
       position: relative !important;
+      -webkit-overflow-scrolling: touch !important; /* smooth iOS inertia scrolling */
+    }
+    #rec2195253293 .t-popup__close {
+      position: absolute !important;
+      top: 15px !important;
+      right: 15px !important;
+      z-index: 9999 !important;
+    }
+    #rec2195253293 .t-popup__close-icon g {
+      fill: #ffffff !important;
+    }
+    #rec2195253293 .t702__wrapper {
+      padding: 30px 20px !important;
+    }
+    #rec2195253293 .t702__img {
+      max-height: 220px !important;
+      -o-object-fit: cover !important;
+         object-fit: cover !important;
+      width: 100% !important;
+    }
+
+    /* HIGH-END RSVP FORM CUSTOM DESIGN & ANIMATIONS */
+    
+    /* Input field styling */
+    #rec2195253293 .t-input-group {
+      margin-bottom: 22px !important;
+    }
+    #rec2195253293 .t-input-title {
+      font-family: 'Georgia', serif !important;
+      font-size: 14px !important;
+      color: #7a6e61 !important; /* Elegant earth tone */
+      letter-spacing: 0.5px;
+      margin-bottom: 8px !important;
+      display: block;
+      font-weight: 500 !important;
+      transition: color 0.3s ease;
+    }
+    #rec2195253293 .t-input {
+      background-color: rgba(253, 251, 247, 0.65) !important; /* frosted cream background */
+      border: 1px solid rgba(190, 180, 170, 0.3) !important;
+      border-radius: 14px !important;
+      padding: 16px 20px !important;
+      font-family: 'Georgia', serif !important;
+      font-size: 15px !important;
+      color: #4a4a4a !important;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02) !important;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    #rec2195253293 .t-input:focus {
+      outline: none !important;
+      background-color: #ffffff !important;
+      border-color: #9bc9e1 !important;
+      box-shadow: 0 10px 25px rgba(155, 201, 225, 0.22) !important;
+      transform: translateY(-2px);
+    }
+
+    /* Transform checkboxes into gorgeous custom selection cards! */
+    #rec2195253293 .t-checkboxes__wrapper {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      list-style: none !important;
+    }
+    #rec2195253293 .t-checkboxes__item {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    #rec2195253293 .t-checkbox__control {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background-color: rgba(253, 251, 247, 0.6) !important;
+      border: 1px solid rgba(190, 180, 170, 0.25) !important;
+      border-radius: 16px !important;
+      padding: 16px 20px !important;
+      cursor: pointer !important;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      font-family: 'Georgia', serif !important;
+      font-size: 15px !important;
+      color: #555555 !important;
+      position: relative !important;
+      text-align: center !important;
+    }
+    
+    /* Hover micro-motions on option cards */
+    #rec2195253293 .t-checkbox__control:hover {
+      background-color: #ffffff !important;
+      border-color: rgba(190, 180, 170, 0.45) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04) !important;
+    }
+    
+    /* Hide the native checkbox input and standard Tilda box */
+    #rec2195253293 .t-checkbox {
+      display: none !important;
+    }
+    #rec2195253293 .t-checkbox__indicator {
+      display: none !important;
+    }
+    
+    /* Style for checked card states */
+    #rec2195253293 .t-checkbox__control:has(input:checked) {
+      background-color: #eaf4fc !important; /* Soft pastel blue highlight */
+      border-color: #9bc9e1 !important;
+      color: #2b6180 !important;
+      font-weight: 500 !important;
+      box-shadow: 0 10px 24px rgba(155, 201, 225, 0.25) !important;
+      transform: translateY(-3px) scale(1.02);
+    }
+    
+    /* Elegant little active indicator ring on checked cards */
+    #rec2195253293 .t-checkbox__control:has(input:checked)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #9bc9e1;
+      box-shadow: 0 0 10px rgba(155, 201, 225, 0.8);
+      animation: pulseActiveIndicator 2s infinite;
+    }
+    
+    @keyframes pulseActiveIndicator {
+      0% { transform: translateY(-50%) scale(1); opacity: 1; }
+      50% { transform: translateY(-50%) scale(1.4); opacity: 0.5; }
+      100% { transform: translateY(-50%) scale(1); opacity: 1; }
+    }
+
+    /* Submit Button overhaul */
+    #rec2195253293 .t-submit {
+      width: 100% !important;
+      padding: 18px 28px !important;
+      font-size: 16px !important;
+      font-weight: 500 !important;
+      letter-spacing: 1px !important;
+      text-transform: uppercase !important;
+      background-color: #9bc9e1 !important; /* Premium sky pastel blue */
+      border-radius: 50px !important; /* Ultra rounded pill button */
+      box-shadow: 0 10px 30px rgba(155, 201, 225, 0.35) !important;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+      cursor: pointer !important;
+      margin-top: 15px !important;
+    }
+    #rec2195253293 .t-submit:hover {
+      background-color: #8bbcd9 !important;
+      transform: translateY(-3px) scale(1.03) !important;
+      box-shadow: 0 15px 35px rgba(155, 201, 225, 0.5) !important;
+    }
+    #rec2195253293 .t-submit:active {
+      transform: translateY(-1px) scale(0.98) !important;
+    }
+    
+    /* Elegant Close button hover rotating motion */
+    #rec2195253293 .t-popup__close-wrapper {
+      background: rgba(0, 0, 0, 0.25) !important;
+      border-radius: 50% !important;
+      padding: 10px !important;
+      width: 44px !important;
+      height: 44px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+      backdrop-filter: blur(4px) !important;
+    }
+    #rec2195253293 .t-popup__close-wrapper:hover {
+      background: rgba(0, 0, 0, 0.5) !important;
+      transform: rotate(90deg) scale(1.1) !important;
+    }
+    
+    /* Success Screen animation */
+    #rec2195253293 .js-successbox {
+      border-radius: 20px !important;
+      background: #f4faf4 !important;
+      border: 1px solid #d4ebd4 !important;
+      color: #2b542b !important;
+      padding: 30px 20px !important;
+      text-align: center !important;
+      font-family: 'Georgia', serif !important;
+      box-shadow: 0 12px 30px rgba(43, 84, 43, 0.08) !important;
+      animation: revealSuccessCard 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+    }
+    
+    @keyframes revealSuccessCard {
+      0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    /* Prevent mobile safari automatic form zooming & adjust image sizing for small screens */
+    @media screen and (max-width: 640px) {
+      #rec2195253293 .t-popup__container {
+        max-height: calc(100vh - 20px) !important;
+        margin: 10px auto !important;
+        border-radius: 20px !important;
+      }
+      #rec2195253293 .t702__img {
+        max-height: 140px !important; /* more compact on mobile to show inputs above the fold */
+      }
+      #rec2195253293 .t702__wrapper {
+        padding: 20px 15px !important;
+      }
+      #rec2195253293 input,
+      #rec2195253293 select,
+      #rec2195253293 textarea,
+      #rec2195253293 .t-input {
+        font-size: 16px !important; /* iOS requires >= 16px font-size to prevent automatic page zoom-in on focus */
+      }
     }
 
     /* Keep the background video card fully visible on mobile breakpoints */
@@ -106,20 +325,69 @@ cx.restore();p.y+=p.vy;p.x+=p.vx+Math.sin(p.drift)*0.4;p.rot+=p.rv;p.drift+=p.ds
 window.addEventListener('resize',function() {const cc=document.getElementById('tdr-confetti');cc.width=window.innerWidth;cc.height=window.innerHeight;});})();</script> 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 1. Video Scroll Control (plays when scrolling, pauses when idle)
-      const video = document.getElementById('bgVideo2');
-      if (video) {
-        let scrollTimeout;
-        window.addEventListener('scroll', function() {
-          if (video.paused) {
-            video.play().catch(() => {});
+      // 1. Fully-Interpoloated High-Performance Scroll-Scrubbing Video Engine!
+      // Dynamically intercepts Tilda's background video and binds its playback frame-by-frame to the user's scroll.
+      let checkCount = 0;
+      const videoInterval = setInterval(function() {
+        const video = document.getElementById('bgVideo2');
+        checkCount++;
+        if (video) {
+          clearInterval(videoInterval);
+          
+          // Swap the source to our newly uploaded luxurious video file!
+          video.src = "/wedding-invite-demo/assets/scroll-video.mp4";
+          video.load();
+          
+          // Force optimal attributes for scrubbing
+          video.removeAttribute('autoplay');
+          video.removeAttribute('loop');
+          video.muted = true;
+          video.playsInline = true;
+          video.setAttribute('playsinline', '');
+          video.setAttribute('webkit-playsinline', '');
+          video.currentTime = 0;
+          
+          // Smooth Interpolated Frame Scrubbing (prevents browser jitters!)
+          let targetTime = 0;
+          let currentTime = 0;
+          
+          // Target section that contains the video
+          const section = document.querySelector('[data-artboard-recid="2047601243"]') || video.closest('.r') || video.parentElement;
+          
+          window.addEventListener('scroll', function() {
+            if (!section) return;
+            const rect = section.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            
+            // Calculate progress through the section
+            // Starts when section top enters viewport bottom, ends when section bottom leaves viewport top
+            const sectionStart = rect.top - viewportHeight;
+            const scrollRange = rect.height + viewportHeight;
+            
+            let progress = -sectionStart / scrollRange;
+            progress = Math.max(0, Math.min(1, progress)); // clamp between 0 and 1
+            
+            if (video.duration) {
+              targetTime = progress * video.duration;
+            }
+          }, { passive: true });
+          
+          function updateScrub() {
+            if (video.duration) {
+              // Linear interpolation (lerp) for liquid smoothness
+              currentTime += (targetTime - currentTime) * 0.12; 
+              if (Math.abs(currentTime - video.currentTime) > 0.01) {
+                video.currentTime = currentTime;
+              }
+            }
+            requestAnimationFrame(updateScrub);
           }
-          clearTimeout(scrollTimeout);
-          scrollTimeout = setTimeout(() => {
-            video.pause();
-          }, 150);
-        }, { passive: true });
-      }
+          requestAnimationFrame(updateScrub);
+        } else if (checkCount > 100) {
+          // Fallback if video takes too long to mount
+          clearInterval(videoInterval);
+        }
+      }, 50);
 
       // 2. Buttery Smooth GSAP ScrollTrigger for Timeline Clouds
       if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -154,6 +422,20 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
       setTimeout(function() {
         const form = document.getElementById('form2195253293');
         if (form) {
+          // Make checkboxes behave like radio buttons (selecting one unchecks the others)
+          const checkboxes = form.querySelectorAll('.t-checkbox');
+          checkboxes.forEach(cb => {
+            cb.addEventListener('change', function() {
+              if (this.checked) {
+                checkboxes.forEach(other => {
+                  if (other !== this) {
+                    other.checked = false;
+                  }
+                });
+              }
+            });
+          });
+
           form.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -163,7 +445,11 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
             
             // Extract selected attendance
             const checkedBoxes = Array.from(form.querySelectorAll('.t-checkbox:checked'));
-            const attending = checkedBoxes.map(cb => cb.value).join(', ') || 'Yes, I will';
+            if (checkedBoxes.length === 0) {
+              alert('Please select whether you will attend.');
+              return;
+            }
+            const attending = checkedBoxes[0].value;
             
             // Extract dietary
             const dietaryInput = document.getElementById('input_2221855674632');
@@ -174,43 +460,79 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
               return;
             }
 
-            // A. Save to LocalStorage guest registry (for love2027 dashboard!)
+            // Change button to show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+            if (submitBtn) {
+              submitBtn.disabled = true;
+              submitBtn.innerHTML = '<span class="t-btnflex__text" style="display:inline-block;">Sending Response...</span>';
+              const textSpan = submitBtn.querySelector('.t-btnflex__text');
+              if (textSpan) {
+                // Breathing glow/scale animation
+                gsap.to(submitBtn, { backgroundColor: '#8bbcd9', duration: 0.8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+                gsap.to(textSpan, { opacity: 0.4, scale: 0.95, duration: 0.6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+              }
+            }
+
+            // Google Sheets Integration (Replace YOUR_GOOGLE_SCRIPT_URL with your actual Web App URL)
+            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOObYoPLgP-RZ4J8tyOVkzCsZ-5pl8RyMDzAqst6NyzoE_DV9GbkUzleYjt_ga63b3/exec";
+
+            // Save to LocalStorage as backup
             const rsvpEntry = {
               id: Math.random().toString(36).substring(2, 9),
               name: name,
               attending: attending.toLowerCase().includes('yes') ? 'yes' : 'no',
-              plusOne: 'no',
-              meal: 'beef',
               dietary: intolerance,
-              message: 'Tilda RSVP popup',
               submittedAt: new Date().toLocaleString()
             };
-
             const existing = localStorage.getItem('wedding_rsvps');
             const list = existing ? JSON.parse(existing) : [];
             list.push(rsvpEntry);
             localStorage.setItem('wedding_rsvps', JSON.stringify(list));
 
-            // B. Direct WhatsApp Redirect
-            const phoneNumber = "1234567890";
-            let messageText = '*RSVP for Alexa & Richard\'s Wedding*%0A%0A';
-            messageText += '*Guest:* ' + encodeURIComponent(name) + '%0A';
-            messageText += '*Will you come:* ' + encodeURIComponent(attending) + '%0A';
-            if (intolerance) {
-              messageText += '*Intolerances:* ' + encodeURIComponent(intolerance) + '%0A';
-            }
-
-            // C. Show Tilda standard Form Success State box inline!
-            const successBox = form.querySelector('.js-successbox') || form.parentElement.querySelector('.t-form__successbox');
-            if (successBox) {
-              successBox.style.display = 'block';
-              form.style.display = 'none';
+            // Send to Google Sheet
+            if (GOOGLE_SCRIPT_URL !== "YOUR_GOOGLE_SCRIPT_URL") {
+              fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  name: name,
+                  attending: attending,
+                  dietary: intolerance
+                })
+              }).then(() => {
+                showSuccess();
+              }).catch(err => {
+                console.error('Error sending RSVP', err);
+                showSuccess(); // still show success since we saved to local storage
+              });
             } else {
-              alert('Thank you! Your response was successfully recorded.');
+              // If no URL is set, just show success directly
+              showSuccess();
             }
 
-            // D. Open WhatsApp in new tab
-            window.open('https://wa.me/' + phoneNumber + '?text=' + messageText, '_blank');
+            function showSuccess() {
+              if (submitBtn) {
+                gsap.killTweensOf(submitBtn);
+                const textSpan = submitBtn.querySelector('.t-btnflex__text');
+                if (textSpan) gsap.killTweensOf(textSpan);
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+              }
+              // C. Show Tilda standard Form Success State box inline!
+              const successBox = form.querySelector('.js-successbox') || form.parentElement.querySelector('.t-form__successbox');
+              if (successBox) {
+                successBox.style.display = 'block';
+                successBox.innerHTML = '<div style="text-align:center; padding: 10px 0;"><h3 style="font-family:\'Georgia\', serif; font-size: 22px; color: #436e43; margin-top: 0; margin-bottom: 12px; font-weight: 500;">Thank You!</h3><p style="font-family:\'Georgia\', serif; font-size:15px; margin: 0; line-height: 1.6; color: #2b542b;">Your RSVP has been beautifully recorded in our wedding registry spreadsheet. We are so excited to celebrate with you!</p></div>';
+                gsap.fromTo(successBox, { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.3)' });
+                form.style.display = 'none';
+              } else {
+                alert('Thank you! Your response was successfully recorded.');
+              }
+            }
           });
         }
       }, 1000);
@@ -231,6 +553,41 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
               popupModal.style.display = 'block';
               popupWrapper.style.display = 'flex'; // Centered Flexbox alignment!
               popupWrapper.classList.add('t-popup_show');
+
+              // Elegant GSAP Entrance Animation for Popup Card Elements!
+              const container = popupModal.querySelector('.t-popup__container');
+              if (container) {
+                // Initial setup for smooth animations
+                gsap.set(container, { scale: 0.85, opacity: 0, y: 30 });
+                const elementsToAnimate = [
+                  container.querySelector('.t702__img'),
+                  container.querySelector('.t702__title'),
+                  container.querySelector('.t702__descr'),
+                  ...container.querySelectorAll('.t-input-group'),
+                  container.querySelector('.t-form__submit')
+                ].filter(Boolean);
+                
+                gsap.set(elementsToAnimate, { opacity: 0, y: 20 });
+                
+                // Animate the main card pop-up
+                gsap.to(container, {
+                  scale: 1,
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.6,
+                  ease: 'power3.out'
+                });
+                
+                // Stagger child elements beautifully
+                gsap.to(elementsToAnimate, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.5,
+                  stagger: 0.08,
+                  ease: 'back.out(1.2)',
+                  delay: 0.15
+                });
+              }
             }
           });
         });
@@ -242,9 +599,25 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
             e.preventDefault();
             const popupWrapper = popupModal.querySelector('.t-popup');
             if (popupWrapper) {
-              popupModal.style.display = 'none';
-              popupWrapper.style.display = 'none';
-              popupWrapper.classList.remove('t-popup_show');
+              const container = popupModal.querySelector('.t-popup__container');
+              if (container) {
+                gsap.to(container, {
+                  scale: 0.9,
+                  opacity: 0,
+                  y: 20,
+                  duration: 0.35,
+                  ease: 'power2.in',
+                  onComplete: function() {
+                    popupModal.style.display = 'none';
+                    popupWrapper.style.display = 'none';
+                    popupWrapper.classList.remove('t-popup_show');
+                  }
+                });
+              } else {
+                popupModal.style.display = 'none';
+                popupWrapper.style.display = 'none';
+                popupWrapper.classList.remove('t-popup_show');
+              }
             }
           });
         });
@@ -416,7 +789,7 @@ aria-label="Close dialog window"> <svg role="presentation" class="t-popup__close
 src="/wedding-invite-demo/assets/tild3862-3630-4035-b331-383335383439_romantic-moments-bea.jpg" data-original="/wedding-invite-demo/assets/tild3862-3630-4035-b331-383335383439_romantic-moments-bea.jpg"
 imgfield="img"
 alt=""> <div class="t702__wrapper"> <div class="t702__text-wrapper t-align_center"> <div class="t702__title t-title t-title_xxs" id="popuptitle_2195253293">Confirm Your Attendance!</div> <div class="t702__descr t-descr t-descr_xs">Please RSVP before September 30</div> </div> <form
-id="form2195253293" name='form2195253293' role="form" action='' method='POST' data-formactiontype="0" data-inputbox=".t-input-group" class="t-form js-form-proccess t-form_inputs-total_3 " data-success-callback="t702_onSuccess"> <!-- NO ONE SERVICES CONNECTED --> <!-- @classes t-title t-text t-btn --> <div class="js-successbox t-form__successbox t-text t-text_md"
+id="form2195253293" name='form2195253293' role="form" action='' method='POST' class="t-form my-custom-form t-form_inputs-total_3"> <!-- NO ONE SERVICES CONNECTED --> <!-- @classes t-title t-text t-btn --> <div class="js-successbox t-form__successbox t-text t-text_md"
 aria-live="polite"
 style="display:none;"></div> <div
 class="t-form__inputsbox
