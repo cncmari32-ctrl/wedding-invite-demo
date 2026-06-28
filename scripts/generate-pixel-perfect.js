@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Unique Asset Pixel Perfect Cloner with Absolute Paths & Centered RSVP...');
+  console.log('Initiating Unique Asset Pixel Perfect Cloner with Absolute Paths & Silent Centered RSVP...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -123,7 +123,6 @@ async function run() {
   // Load standard jQuery and high-performance GSAP & ScrollTrigger headers directly
   console.log('Injecting high-performance jQuery, GSAP & ScrollTrigger headers...');
   
-  // Custom CSS override to guarantee that the Dress Code card gallery and centered RSVP Popup render perfectly
   const customStyles = `
   <style>
     /* Absolute pixel-perfect alignment and centering for the Dress Code row */
@@ -200,10 +199,11 @@ async function run() {
   html = html.replace(/'([a-zA-Z-]+)=/g, "' $1=");
   html = html.replace(/"([a-zA-Z-]+)=/g, '" $1=');
 
-  // BYPASS Tilda's SBS script for these two cloud elements so they don't fight with GSAP ScrollTrigger over transform properties!
-  console.log('Bypassing Tilda SBS on cloud elements to give GSAP 100% exclusive smooth control...');
-  html = html.replace(/data-elem-id='1776876503947' data-elem-type='image'[^>]*data-animate-sbs-event="scroll"/, "data-elem-id='1776876503947' data-elem-type='image' data-animate-sbs-event='none'");
-  html = html.replace(/data-elem-id='1776876608318000001' data-elem-type='image'[^>]*data-animate-sbs-event="scroll"/, "data-elem-id='1776876608318000001' data-elem-type='image' data-animate-sbs-event='none'");
+  // MUSIC DISABLER: Completely remove Tilda's audio script section and element, making the page entirely silent!
+  console.log('Completely removing and stripping out background music loop player...');
+  // Find and remove the audio block and its associated scripts
+  const audioBlockRegex = /<div id="rec2053155743"[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/script>/;
+  html = html.replace(audioBlockRegex, '');
 
   // Inject custom scroll video play trigger, GSAP scroll clouds, AND direct fully-functional RSVP popup form submit intercept!
   const scrollTriggerScripts = `
@@ -320,7 +320,8 @@ async function run() {
 
       // 4. Secure Native RSVP Modal Fallback Click Handler
       // Explicitly opens the Tilda RSVP popup modal when clicking 'Confirm Your Attendance' buttons!
-      const rsvpButtons = document.querySelectorAll('a[href="#popup:myform"], .popup-enter');
+      // (EXCLUDED .popup-enter selector to completely prevent RSVP modal from popping up when opening the envelope!)
+      const rsvpButtons = document.querySelectorAll('a[href="#popup:myform"]');
       const popupModal = document.getElementById('rec2195253293');
       
       if (rsvpButtons && popupModal) {
@@ -351,6 +352,21 @@ async function run() {
             }
           });
         });
+      }
+
+      // 5. TOUCH-FRIENDLY MOBILE ENVELOPE OPEN TRIGGER
+      // Ensures tapping ANYWHERE near the center of the envelope on mobile instantly opens it!
+      const envelopeBlock = document.getElementById('rec2292029533');
+      const waxSeal = document.querySelector('.popup-enter');
+      if (envelopeBlock && waxSeal) {
+        const triggerOpen = function(e) {
+          if (!waxSeal.classList.contains('opened-custom')) {
+            waxSeal.classList.add('opened-custom');
+            waxSeal.click(); // trigger Tilda's SBS opening animation sequences
+          }
+        };
+        envelopeBlock.addEventListener('click', triggerOpen);
+        envelopeBlock.addEventListener('touchstart', triggerOpen, { passive: true });
       }
     });
   </script>
