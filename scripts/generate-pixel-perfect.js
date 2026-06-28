@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Unique Asset Pixel Perfect Cloner with Absolute Paths & Silent Centered RSVP...');
+  console.log('Initiating Unique Asset Pixel Perfect Cloner with Absolute Paths & Centered RSVP...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -181,6 +181,18 @@ async function run() {
       padding: 12px !important;
       position: relative !important;
     }
+
+    /* Keep the background video card fully visible on mobile breakpoints */
+    @media screen and (max-width: 980px) {
+      #rec2047601243 .tn-elem[data-elem-id="1776948113983"] {
+        display: block !important;
+        visibility: visible !important;
+      }
+      #rec2047601243 video {
+        display: block !important;
+        visibility: visible !important;
+      }
+    }
   </style>
   `;
 
@@ -199,11 +211,15 @@ async function run() {
   html = html.replace(/'([a-zA-Z-]+)=/g, "' $1=");
   html = html.replace(/"([a-zA-Z-]+)=/g, '" $1=');
 
-  // MUSIC DISABLER: Completely remove Tilda's audio script section and element, making the page entirely silent!
+  // MUSIC DISABLER
   console.log('Completely removing and stripping out background music loop player...');
-  // Find and remove the audio block and its associated scripts
   const audioBlockRegex = /<div id="rec2053155743"[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/script>/;
   html = html.replace(audioBlockRegex, '');
+
+  // BYPASS Tilda's SBS script for these two cloud elements so they don't fight with GSAP ScrollTrigger over transform properties!
+  console.log('Bypassing Tilda SBS on cloud elements to give GSAP 100% exclusive smooth control...');
+  html = html.replace(/data-elem-id='1776876503947' data-elem-type='image'[^>]*data-animate-sbs-event="scroll"/, "data-elem-id='1776876503947' data-elem-type='image' data-animate-sbs-event='none'");
+  html = html.replace(/data-elem-id='1776876608318000001' data-elem-type='image'[^>]*data-animate-sbs-event="scroll"/, "data-elem-id='1776876608318000001' data-elem-type='image' data-animate-sbs-event='none'");
 
   // Inject custom scroll video play trigger, GSAP scroll clouds, AND direct fully-functional RSVP popup form submit intercept!
   const scrollTriggerScripts = `
@@ -320,7 +336,6 @@ async function run() {
 
       // 4. Secure Native RSVP Modal Fallback Click Handler
       // Explicitly opens the Tilda RSVP popup modal when clicking 'Confirm Your Attendance' buttons!
-      // (EXCLUDED .popup-enter selector to completely prevent RSVP modal from popping up when opening the envelope!)
       const rsvpButtons = document.querySelectorAll('a[href="#popup:myform"]');
       const popupModal = document.getElementById('rec2195253293');
       
@@ -354,19 +369,37 @@ async function run() {
         });
       }
 
-      // 5. TOUCH-FRIENDLY MOBILE ENVELOPE OPEN TRIGGER
-      // Ensures tapping ANYWHERE near the center of the envelope on mobile instantly opens it!
+      // 5. NATIVE HIGH-PERFORMANCE ENVELOPE OPENING ANIMATION (Mobile & Desktop)
+      // Completely bypasses Tilda's click-triggers to ensure 100% reliable tapping on mobile!
       const envelopeBlock = document.getElementById('rec2292029533');
-      const waxSeal = document.querySelector('.popup-enter');
-      if (envelopeBlock && waxSeal) {
+      if (envelopeBlock) {
         const triggerOpen = function(e) {
-          if (!waxSeal.classList.contains('opened-custom')) {
-            waxSeal.classList.add('opened-custom');
-            waxSeal.click(); // trigger Tilda's SBS opening animation sequences
-          }
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const leftPanel = envelopeBlock.querySelector('[data-elem-id="1773848179361"]');
+          const rightPanel = envelopeBlock.querySelector('[data-elem-id="1773848137949"]');
+          const bottomPanel = envelopeBlock.querySelector('[data-elem-id="1773847988093"]');
+          const topPanel = envelopeBlock.querySelector('[data-elem-id="1773847892509"]');
+          const waxSeal = envelopeBlock.querySelector('.popup-enter');
+          const text = envelopeBlock.querySelector('[data-elem-id="1777183175514000001"]');
+          
+          const transitions = 'transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease-out';
+          
+          if (leftPanel) { leftPanel.style.transition = transitions; leftPanel.style.transform = 'translateX(-100%)'; }
+          if (rightPanel) { rightPanel.style.transition = transitions; rightPanel.style.transform = 'translateX(100%)'; }
+          if (bottomPanel) { bottomPanel.style.transition = transitions; bottomPanel.style.transform = 'translateY(100%)'; }
+          if (topPanel) { topPanel.style.transition = transitions; topPanel.style.transform = 'translateY(-100%)'; }
+          if (waxSeal) { waxSeal.style.transition = transitions; waxSeal.style.transform = 'scale(1.25)'; waxSeal.style.opacity = '0'; }
+          if (text) { text.style.transition = transitions; text.style.opacity = '0'; }
+          
+          setTimeout(function() {
+            envelopeBlock.style.display = 'none';
+          }, 950);
         };
+        
         envelopeBlock.addEventListener('click', triggerOpen);
-        envelopeBlock.addEventListener('touchstart', triggerOpen, { passive: true });
+        envelopeBlock.addEventListener('touchstart', triggerOpen, { passive: false });
       }
     });
   </script>
