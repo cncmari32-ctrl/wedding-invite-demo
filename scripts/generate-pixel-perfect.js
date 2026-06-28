@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Unique Asset Pixel Perfect Cloner with Absolute Paths...');
+  console.log('Initiating Unique Asset Pixel Perfect Cloner with Absolute Paths & Centered RSVP...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -75,7 +75,7 @@ async function run() {
 
   html = html.replace(/https:\/\/static\.tildacdn\.net\/css\/tilda-grid-3\.0\.min\.css/g, '/wedding-invite-demo/assets/tilda-grid-3.0.min.css');
 
-  // Replace photos with premium custom placeholders
+  // Replace photos
   const customPhotos = {
     'tild3862-3630-4035-b331-383335383439_romantic-moments-bea.jpg': 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
     'tild3965-6266-4165-b837-303236623330_elegant-couple-love-.jpg': 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop',
@@ -115,7 +115,7 @@ async function run() {
 
   html = html.split('Address: Puerto Vallarta, MX').join("Address: 33 rue de l'indre, Nantes 44000");
 
-  // FORCE DRESS CODE IMAGES/SWATCHES TO LOAD DIRECTLY (bypasses Tilda's empty/lazy placeholder gif)
+  // FORCE DRESS CODE IMAGES/SWATCHES TO LOAD DIRECTLY
   console.log('Replacing lazy /empty/ placeholders with direct local asset paths for the Dress Code gallery...');
   const regexImgSrc = /src="https:\/\/thb\.tildacdn\.net\/([^\"]+)\/-\/empty\/([^\"]+)"\s+data-original="([^\"]+)"/g;
   html = html.replace(regexImgSrc, 'src="$3" data-original="$3"');
@@ -123,7 +123,7 @@ async function run() {
   // Load standard jQuery and high-performance GSAP & ScrollTrigger headers directly
   console.log('Injecting high-performance jQuery, GSAP & ScrollTrigger headers...');
   
-  // Custom CSS override to guarantee that the Dress Code card gallery and scroll indicators render perfectly
+  // Custom CSS override to guarantee that the Dress Code card gallery and centered RSVP Popup render perfectly
   const customStyles = `
   <style>
     /* Absolute pixel-perfect alignment and centering for the Dress Code row */
@@ -153,6 +153,34 @@ async function run() {
       width: 100% !important;
       height: 100% !important;
       object-fit: cover !important;
+    }
+
+    /* Perfect flexbox centering for the RSVP Popup Modal */
+    #rec2195253293 .t-popup {
+      display: none;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 2147483647 !important;
+      background-color: rgba(10, 10, 10, 0.4) !important;
+      backdrop-filter: blur(8px) !important; /* premium frosted glass backdrop */
+    }
+    #rec2195253293 .t-popup_show {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    #rec2195253293 .t702__wrapper {
+      margin: auto !important;
+      width: calc(100% - 32px) !important;
+      max-width: 480px !important;
+      border-radius: 30px !important;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+      background-color: #ffffff !important;
+      padding: 12px !important;
+      position: relative !important;
     }
   </style>
   `;
@@ -232,12 +260,15 @@ async function run() {
           form.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Extract values
             const nameInput = document.getElementById('input_2221855674630');
             const name = nameInput ? nameInput.value.trim() : '';
             
+            // Extract selected attendance
             const checkedBoxes = Array.from(form.querySelectorAll('.t-checkbox:checked'));
             const attending = checkedBoxes.map(cb => cb.value).join(', ') || 'Yes, I will';
             
+            // Extract dietary
             const dietaryInput = document.getElementById('input_2221855674632');
             const intolerance = dietaryInput ? dietaryInput.value.trim() : '';
             
@@ -246,6 +277,7 @@ async function run() {
               return;
             }
 
+            // A. Save to LocalStorage guest registry (for love2027 dashboard!)
             const rsvpEntry = {
               id: Math.random().toString(36).substring(2, 9),
               name: name,
@@ -262,6 +294,7 @@ async function run() {
             list.push(rsvpEntry);
             localStorage.setItem('wedding_rsvps', JSON.stringify(list));
 
+            // B. Direct WhatsApp Redirect
             const phoneNumber = "1234567890";
             let messageText = '*RSVP for Charlotte & William\\'s Wedding*%0A%0A';
             messageText += '*Guest:* ' + encodeURIComponent(name) + '%0A';
@@ -270,6 +303,7 @@ async function run() {
               messageText += '*Intolerances:* ' + encodeURIComponent(intolerance) + '%0A';
             }
 
+            // C. Show Tilda standard Form Success State box inline!
             const successBox = form.querySelector('.js-successbox') || form.parentElement.querySelector('.t-form__successbox');
             if (successBox) {
               successBox.style.display = 'block';
@@ -278,6 +312,7 @@ async function run() {
               alert('Thank you! Your response was successfully recorded.');
             }
 
+            // D. Open WhatsApp in new tab
             window.open('https://wa.me/' + phoneNumber + '?text=' + messageText, '_blank');
           });
         }
@@ -297,7 +332,7 @@ async function run() {
             const popupWrapper = popupModal.querySelector('.t-popup');
             if (popupWrapper) {
               popupModal.style.display = 'block';
-              popupWrapper.style.display = 'block';
+              popupWrapper.style.display = 'flex'; // Centered Flexbox alignment!
               popupWrapper.classList.add('t-popup_show');
             }
           });
