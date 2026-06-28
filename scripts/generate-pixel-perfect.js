@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Unique Asset Pixel Perfect Cloner with GSAP & Google Maps...');
+  console.log('Initiating Unique Asset Pixel Perfect Cloner with GSAP & Robust Regex Google Maps...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -93,28 +93,29 @@ async function run() {
 
   // SURGICAL replacement of couple names & dates
   console.log('Surgically replacing couple names and dates inside HTML...');
-  html = html.replace(/<title>Alexa &amp; Richard<\/title>/g, '<title>Charlotte &amp; William</title>');
-  html = html.replace(/<title>Alexa & Richard<\/title>/g, '<title>Charlotte & William</title>');
-  html = html.replace(/content="Alexa &amp; Richard"/g, 'content="Charlotte &amp; William"');
-  html = html.replace(/content="Alexa & Richard"/g, 'content="Charlotte & William"');
-  html = html.replace(/>Alexa &amp; Richard<\/div>/g, '>Charlotte &amp; William</div>');
-  html = html.replace(/>Alexa & Richard<\/div>/g, '>Charlotte & William</div>');
-  html = html.replace(/>Alexa &amp; Richard<\/span>/g, '>Charlotte &amp; William</span>');
-  html = html.replace(/>Alexa & Richard<\/span>/g, '>Charlotte & William</span>');
-  html = html.replace(/<span class="tdr-num">14<\/span>/g, '<span class="tdr-num">20</span>');
-  html = html.replace(/<span class="tdr-num">2025<\/span>/g, '<span class="tdr-num">2027</span>');
+  html = html.split('<title>Alexa &amp; Richard</title>').join('<title>Charlotte &amp; William</title>');
+  html = html.split('<title>Alexa & Richard</title>').join('<title>Charlotte & William</title>');
+  html = html.split('content="Alexa &amp; Richard"').join('content="Charlotte &amp; William"');
+  html = html.split('content="Alexa & Richard"').join('content="Charlotte & William"');
+  html = html.split('>Alexa &amp; Richard</div>').join('>Charlotte &amp; William</div>');
+  html = html.split('>Alexa & Richard</div>').join('>Charlotte & William</div>');
+  html = html.split('>Alexa &amp; Richard</span>').join('>Charlotte &amp; William</span>');
+  html = html.split('>Alexa & Richard</span>').join('>Charlotte & William</span>');
+  html = html.split('<span class="tdr-num">14</span>').join('<span class="tdr-num">20</span>');
+  html = html.split('<span class="tdr-num">2025</span>').join('<span class="tdr-num">2027</span>');
 
   // INTERACTIVE GOOGLE MAP REPLACEMENT: Populate empty wedding venue card with a beautiful, fully interactive Google Map
   console.log('Injecting Google Map iframe into the Wedding Venue card container...');
-  const mapIframe = `
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2710.222718317551!2d-1.5583939!3d47.213233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ec6a235313a6%3A0xc3b00bd561a01dd8!2s33%20Rue%20de%20l'Indre%2C%2044000%20Nantes%2C%20France!5e0!3m2!1sen!2sus!4v1781959653!5m2!1sen!2sus" width="100%" height="380" style="border:0; border-radius:30px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  `;
-  // We replace the image tag within the tn-atom inside the venue element container
-  const imgAtomOld = `<div class='tn-atom'> <img class='tn-atom__img t-img' data-original='./assets/tild3361-3537-4334-b532-323531306235_8cdb6addd9fcedfeb54b.jpg'\nsrc='./assets/tild3361-3537-4334-b532-323531306235_8cdb6addd9fcedfeb54b.jpg'\nalt='' imgfield='tn_img_1730388904759'\n/> </div>`;
-  html = html.replace(imgAtomOld, `<div class='tn-atom' style='height:380px;'>${mapIframe}</div>`);
+  const mapIframe = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2710.222718317551!2d-1.5583939!3d47.213233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ec6a235313a6%3A0xc3b00bd561a01dd8!2s33%20Rue%20de%20l'Indre%2C%2044000%20Nantes%2C%20France!5e0!3m2!1sen!2sus!4v1781959653!5m2!1sen!2sus" width="100%" height="380" style="border:0; border-radius:30px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+  
+  // Robust lazy regex replacement for the tn-atom inside the venue image element
+  const regexVenueCard = /<div class='t396__elem tn-elem tn-elem__20476572031730388904759'([^>]*)>([\s\S]*?)<div class='tn-atom'>([\s\S]*?)<\/div>([\s\S]*?)<\/div>/;
+  html = html.replace(regexVenueCard, (match, p1, p2, p3, p4) => {
+    return `<div class='t396__elem tn-elem tn-elem__20476572031730388904759'${p1}>${p2}<div class='tn-atom' style='height:380px;'>${mapIframe}</div>${p4}</div>`;
+  });
 
   // Update venue address text safely to Nantes
-  html = html.replace(/Address: Puerto Vallarta, MX/g, "Address: 33 rue de l'indre, Nantes 44000");
+  html = html.split('Address: Puerto Vallarta, MX').join("Address: 33 rue de l'indre, Nantes 44000");
 
   // BYPASS Tilda's SBS script for these two cloud elements so they don't fight with GSAP ScrollTrigger over transform properties!
   console.log('Bypassing Tilda SBS on cloud elements to give GSAP 100% exclusive smooth control...');
@@ -130,7 +131,7 @@ async function run() {
   html = html.replace('</head>', `${gsapCDNs}</head>`);
 
   // Optimize script loading tags to defer sequentially
-  html = html.replace(/async\s+charset="utf-8"/g, 'defer charset="utf-8"');
+  html = html.split('async charset="utf-8"').join('defer charset="utf-8"');
   
   // Fixing strict HTML attribute spacing to satisfy Vite
   html = html.replace(/'([a-zA-Z-]+)=/g, "' $1=");
