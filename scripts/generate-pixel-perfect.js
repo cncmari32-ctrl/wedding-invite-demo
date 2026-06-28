@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Unique Asset Pixel Perfect Cloner with GSAP ScrollTrigger...');
+  console.log('Initiating Unique Asset Pixel Perfect Cloner with GSAP & Google Maps...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -75,7 +75,7 @@ async function run() {
 
   html = html.replace(/https:\/\/static\.tildacdn\.net\/css\/tilda-grid-3\.0\.min\.css/g, './assets/tilda-grid-3.0.min.css');
 
-  // Replace photos with premium custom placeholders
+  // Replace photos
   const customPhotos = {
     'tild3862-3630-4035-b331-383335383439_romantic-moments-bea.jpg': 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
     'tild3965-6266-4165-b837-303236623330_elegant-couple-love-.jpg': 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop',
@@ -103,6 +103,18 @@ async function run() {
   html = html.replace(/>Alexa & Richard<\/span>/g, '>Charlotte & William</span>');
   html = html.replace(/<span class="tdr-num">14<\/span>/g, '<span class="tdr-num">20</span>');
   html = html.replace(/<span class="tdr-num">2025<\/span>/g, '<span class="tdr-num">2027</span>');
+
+  // INTERACTIVE GOOGLE MAP REPLACEMENT: Populate empty wedding venue card with a beautiful, fully interactive Google Map
+  console.log('Injecting Google Map iframe into the Wedding Venue card container...');
+  const mapIframe = `
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2710.222718317551!2d-1.5583939!3d47.213233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ec6a235313a6%3A0xc3b00bd561a01dd8!2s33%20Rue%20de%20l'Indre%2C%2044000%20Nantes%2C%20France!5e0!3m2!1sen!2sus!4v1781959653!5m2!1sen!2sus" width="100%" height="380" style="border:0; border-radius:30px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  `;
+  // We replace the image tag within the tn-atom inside the venue element container
+  const imgAtomOld = `<div class='tn-atom'> <img class='tn-atom__img t-img' data-original='./assets/tild3361-3537-4334-b532-323531306235_8cdb6addd9fcedfeb54b.jpg'\nsrc='./assets/tild3361-3537-4334-b532-323531306235_8cdb6addd9fcedfeb54b.jpg'\nalt='' imgfield='tn_img_1730388904759'\n/> </div>`;
+  html = html.replace(imgAtomOld, `<div class='tn-atom' style='height:380px;'>${mapIframe}</div>`);
+
+  // Update venue address text safely to Nantes
+  html = html.replace(/Address: Puerto Vallarta, MX/g, "Address: 33 rue de l'indre, Nantes 44000");
 
   // BYPASS Tilda's SBS script for these two cloud elements so they don't fight with GSAP ScrollTrigger over transform properties!
   console.log('Bypassing Tilda SBS on cloud elements to give GSAP 100% exclusive smooth control...');
@@ -182,7 +194,7 @@ async function run() {
 
   const outHtmlPath = path.join(PROJECT_DIR, 'index.html');
   fs.writeFileSync(outHtmlPath, html);
-  console.log(`✅ Success! Strict Unique Clean generated with GSAP timelines at ${outHtmlPath}`);
+  console.log(`✅ Success! Strict Unique Clean generated with Google Maps at ${outHtmlPath}`);
 }
 
 run();
