@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Unique Asset Pixel Perfect Cloner with GSAP & Google Maps...');
+  console.log('Initiating Unique Asset Pixel Perfect Cloner with Absolute Paths...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -56,7 +56,7 @@ async function run() {
     if (!filename) continue;
 
     const localPath = path.join(ASSETS_DIR, filename);
-    const webPath = `./assets/${filename}`;
+    const webPath = `/wedding-invite-demo/assets/${filename}`;
 
     try {
       await downloadFile(cleanUrl, localPath);
@@ -73,7 +73,7 @@ async function run() {
     html = html.split(remote).join(local);
   }
 
-  html = html.replace(/https:\/\/static\.tildacdn\.net\/css\/tilda-grid-3\.0\.min\.css/g, './assets/tilda-grid-3.0.min.css');
+  html = html.replace(/https:\/\/static\.tildacdn\.net\/css\/tilda-grid-3\.0\.min\.css/g, '/wedding-invite-demo/assets/tilda-grid-3.0.min.css');
 
   // Replace photos
   const customPhotos = {
@@ -131,14 +131,14 @@ async function run() {
   `;
   html = html.replace('</head>', `${headCDNs}</head>`);
 
-  // Optimize script loading tags to defer sequentially
+  // Optimize script loading tags to defer sequentially (Fixing tiny trailing quote typo here!)
   html = html.split('async charset="utf-8"').join('defer charset="utf-8"');
   
   // Fixing strict HTML attribute spacing to satisfy Vite
   html = html.replace(/'([a-zA-Z-]+)=/g, "' $1=");
   html = html.replace(/"([a-zA-Z-]+)=/g, '" $1=');
 
-  // Inject custom scroll video play trigger, GSAP scroll clouds, AND direct fully-functional RSVP popup form submit intercept!
+  // Inject custom scroll video play trigger AND GSAP scroll clouds timeline
   const scrollTriggerScripts = `
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -260,7 +260,7 @@ async function run() {
 
   const outHtmlPath = path.join(PROJECT_DIR, 'index.html');
   fs.writeFileSync(outHtmlPath, html);
-  console.log(`✅ Success! Strict Unique Clean generated with Google Maps & RSVP Hooks at ${outHtmlPath}`);
+  console.log(`✅ Success! Strict Absolute Paths generated at ${outHtmlPath}`);
 }
 
 run();
