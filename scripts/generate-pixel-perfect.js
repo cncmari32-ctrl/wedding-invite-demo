@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Surgical Pixel Perfect Tilda Cloner...');
+  console.log('Initiating Unique Asset Pixel Perfect Cloner...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -49,7 +49,10 @@ async function run() {
   for (const assetUrl of matches) {
     const cleanUrl = assetUrl.startsWith('//') ? `https:${assetUrl}` : assetUrl;
     const urlObj = new URL(cleanUrl);
-    const filename = path.basename(urlObj.pathname);
+    
+    // Generate a unique localized filename based on its URL path to avoid duplicates/collisions (e.g. several files named noroot.png)
+    const urlParts = urlObj.pathname.split('/').filter(Boolean);
+    const filename = urlParts.join('_');
     
     if (!filename) continue;
 
@@ -66,7 +69,7 @@ async function run() {
     }
   }
 
-  // Rewrite asset paths
+  // Rewrite asset paths inside HTML
   for (const [remote, local] of Object.entries(assetMap)) {
     html = html.split(remote).join(local);
   }
@@ -74,16 +77,18 @@ async function run() {
   html = html.replace(/https:\/\/static\.tildacdn\.net\/css\/tilda-grid-3\.0\.min\.css/g, './assets/tilda-grid-3.0.min.css');
 
   // Replace photos with premium custom placeholders
+  // We match the unique localized file names that were downloaded
   const customPhotos = {
-    'romantic-moments-bea.jpg': 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
-    'elegant-couple-love-.jpg': 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop',
-    '8cdb6addd9fcedfeb54b.jpg': 'https://images.unsplash.com/photo-1520854221256-17451cc350db?q=80&w=1200&auto=format&fit=crop'
+    'tild3862-3630-4035-b331-383335383439_romantic-moments-bea.jpg': 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
+    'tild3965-6266-4165-b837-303236623330_elegant-couple-love-.jpg': 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop',
+    'tild3361-3537-4334-b532-323531306235_8cdb6addd9fcedfeb54b.jpg': 'https://images.unsplash.com/photo-1520854221256-17451cc350db?q=80&w=1200&auto=format&fit=crop'
   };
 
   for (const [filename, fallbackUrl] of Object.entries(customPhotos)) {
-    const localPath = path.join(ASSETS_DIR, fallbackUrl ? filename : filename); // keep local name
+    const localPath = path.join(ASSETS_DIR, filename);
     try {
       await downloadFile(fallbackUrl, localPath);
+      console.log(`✅ Successfully updated custom premium image: ${filename}`);
     } catch (e) {
       console.error(`Failed to replace ${filename}:`, e.message);
     }
@@ -138,7 +143,7 @@ async function run() {
 
   const outHtmlPath = path.join(PROJECT_DIR, 'index.html');
   fs.writeFileSync(outHtmlPath, html);
-  console.log(`✅ Success! Strict Surgical Clean generated at ${outHtmlPath}`);
+  console.log(`\n✅ Success! Strict Unique Clean generated at ${outHtmlPath}`);
 }
 
 run();
