@@ -1,107 +1,112 @@
 import { useState } from 'react';
+import { motion } from 'motion/react';
+import { Heart } from 'lucide-react';
+
+// Tilda Styled Custom Components
+import TildaEnvelope from './components/TildaEnvelope';
 import VideoBackground from './components/VideoBackground';
 import HeroOverlay from './components/HeroOverlay';
-import PrintQR from './components/PrintQR';
+import ScheduleEvents from './components/ScheduleEvents';
+import VenueDressCode from './components/VenueDressCode';
+import TildaGallery from './components/TildaGallery';
+import RsvpModal from './components/RsvpModal';
 
-// Luxurious New Interactive Components
-import CinematicIntro from './components/CinematicIntro';
-import FloatingPetals from './components/FloatingPetals';
+// Interactive Extras
 import AudioToggle from './components/AudioToggle';
-import Countdown from './components/Countdown';
-import StoryTimeline from './components/StoryTimeline';
-import EventDetails from './components/EventDetails';
-import TravelAccommodations from './components/TravelAccommodations';
-import WeddingGallery from './components/WeddingGallery';
-import FaqSection from './components/FaqSection';
-import RsvpForm from './components/RsvpForm';
 import AdminDashboard from './components/AdminDashboard';
 
 function App() {
-  const [currentHash, setCurrentHash] = useState(window.location.hash);
-  const [hasEntered, setHasEntered] = useState(false);
-
-  // Monitor URL hash changes (for our physical QR print template view)
-  useState(() => {
-    const onHashChange = () => {
-      setCurrentHash(window.location.hash);
-      window.scrollTo(0,0);
-    };
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  });
-
-  if (currentHash === '#/print') {
-    return <PrintQR />;
-  }
+  const [hasOpenedEnvelope, setHasOpenedEnvelope] = useState(false);
+  const [isRsvpOpen, setIsRsvpOpen] = useState(false);
 
   return (
-    <main className="bg-[#FAF9F5] text-brand-dark min-h-screen relative selection:bg-brand-accent/20">
+    <main className="bg-[#f9f6f3] text-tilda-text min-h-screen relative selection:bg-tilda-accent/20">
       
-      {/* 1. Cinematic Intro Screen */}
-      <CinematicIntro onEnter={() => setHasEntered(true)} />
+      {/* 1. Vintage Envelope Intro Screen */}
+      <TildaEnvelope onOpen={() => setHasOpenedEnvelope(true)} />
 
-      {hasEntered && (
-        <>
-          {/* 2. Delicate Canvas Petal Rain */}
-          <FloatingPetals />
-
-          {/* 3. Ambient Wedding Audio Toggle */}
+      {hasOpenedEnvelope && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          {/* 2. Audio Control Toggle & Admin Key */}
           <AudioToggle />
-
-          {/* 4. Guest RSVP Management Dashboard */}
           <AdminDashboard />
 
-          {/* 5. Unique QR Studio Access (For template owners) */}
-          <a 
-            href="#/print"
-            className="fixed top-6 right-6 z-40 px-5 py-2.5 bg-white/80 backdrop-blur-md border border-brand-accent/20 text-brand-dark font-sans text-[10px] uppercase tracking-[0.2em] rounded-full hover:bg-brand-dark hover:text-white transition-all duration-300 shadow-sm"
-          >
-            Print QR Studio
-          </a>
-
-          {/* 6. Cinematic Background Video Loop (Veo generated) */}
+          {/* 3. Subtle Paper & Silk Parallax Background */}
           <VideoBackground />
 
-          {/* 7. Hero section with parallax titles */}
+          {/* 4. Hero Section with names & Scratch card */}
           <HeroOverlay />
 
           {/* Immersive Scrollable Sections */}
-          <div className="relative z-10">
+          <div className="relative z-10 max-w-5xl mx-auto space-y-16">
             
-            {/* The Countdown timer */}
-            <Countdown />
-
-            {/* Our Story section */}
-            <StoryTimeline />
-
-            {/* Details Grid (Bento style) */}
-            <EventDetails />
-
-            {/* Travel and Lodging guides */}
-            <TravelAccommodations />
-
-            {/* Premium slideshow carousel */}
-            <WeddingGallery />
-
-            {/* Common FAQ accordion */}
-            <FaqSection />
-
-            {/* Beautiful validated Guest RSVP Form */}
-            <RsvpForm />
-
-            {/* Footer with copyright */}
-            <footer className="bg-brand-light py-16 text-center border-t border-brand-accent/10 relative z-20">
-              <p className="font-serif text-3xl font-light text-brand-dark mb-4">Sarah & John</p>
-              <p className="font-sans text-[10px] uppercase tracking-widest text-brand-dark/40 mb-2">
-                Villa Balbiano, Lake Como, Italy
+            {/* 5. Welcome Note Letter */}
+            <section className="py-20 px-6 text-center space-y-8 max-w-2xl mx-auto">
+              <div className="flex justify-center select-none">
+                <Heart className="w-5 h-5 text-tilda-accent stroke-[1.2]" />
+              </div>
+              
+              <h2 className="font-serif text-2xl text-tilda-accent italic">Dear friends and family,</h2>
+              
+              <p className="font-sans text-sm text-tilda-text/80 leading-relaxed font-light">
+                As we get ready to say “I do,” we feel grateful for the wonderful people in our lives.
+                <br /><br />
+                Your support means the world to us, and we would be honored to have you with us as we begin our life together.
               </p>
-              <p className="font-sans text-[9px] uppercase tracking-widest text-brand-dark/20">
-                © 2026 Sarah & John. All rights reserved.
+              
+              <div className="w-12 h-[1px] bg-tilda-accent/20 mx-auto pt-6" />
+            </section>
+
+            {/* 6. Timeline of the day */}
+            <ScheduleEvents />
+
+            {/* 7. Location & Dress code colors */}
+            <VenueDressCode />
+
+            {/* 8. Image Collage Grid */}
+            <TildaGallery />
+
+            {/* 9. Direct RSVP Action Bar */}
+            <section className="py-24 text-center space-y-8 px-6">
+              <div className="space-y-4">
+                <h3 className="font-serif text-3xl font-light">Join Our Joy</h3>
+                <p className="font-sans text-xs tracking-wider text-tilda-accent uppercase">
+                  To help us prepare for a joyful celebration, kindly confirm your attendance.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setIsRsvpOpen(true)}
+                className="px-12 py-5 bg-brand-dark hover:bg-tilda-accent text-white hover:text-brand-dark font-sans text-xs uppercase tracking-[0.25em] rounded-full transition-all duration-500 shadow-md hover:shadow-lg hover:scale-105"
+              >
+                Confirm Your Attendance
+              </button>
+            </section>
+
+            {/* 10. The Popup RSVP modal */}
+            <RsvpModal isOpen={isRsvpOpen} onClose={() => setIsRsvpOpen(false)} />
+
+            {/* Footer */}
+            <footer className="py-20 text-center border-t border-tilda-accent/10">
+              <div className="flex justify-center select-none mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 100 100" fill="none" stroke="#8d7a6b" strokeWidth="1">
+                  <path d="M50 20 C40 40, 20 45, 50 80 C80 45, 60 40, 50 20 Z" />
+                </svg>
+              </div>
+              <p className="font-serif text-3xl font-light text-tilda-text mb-4">Clara & Julian</p>
+              <p className="font-sans text-[10px] uppercase tracking-widest text-tilda-accent/60">
+                Hope to see you there!
               </p>
             </footer>
+
           </div>
-        </>
+        </motion.div>
       )}
+
     </main>
   );
 }

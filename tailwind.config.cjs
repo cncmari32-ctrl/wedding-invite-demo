@@ -11,14 +11,12 @@ export default {
         serif: ['Playfair Display', 'serif'],
       },
       colors: {
-        brand: {
-          dark: '#0a0a0a',
-          light: '#f5f5f0',
-          accent: '#c8b49e', // Soft gold/champagne
+        tilda: {
+          bg: '#f9f6f3',      // Warm cream background
+          text: '#2d2b27',    // Deep olive/charcoal text
+          accent: '#8d7a6b',  // Soft vintage gold/brown accent
+          gold: '#c8b49e',
         }
-      },
-      height: {
-        'svh': '100svh',
       }
     },
   },
