@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // We use a high-end cinematic stock video for the demo.
 // Once you run your Veo script, replace this URL with your generated video!
-const DEMO_VIDEO_URL = "https://assets.mixkit.co/videos/preview/mixkit-ink-swirling-in-water-2681-large.mp4";
+const DEMO_VIDEO_URL = "./assets/veo-background.mp4";
 
 const VideoBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
