@@ -34,7 +34,7 @@ async function downloadFile(url, dest) {
 }
 
 async function run() {
-  console.log('Initiating Strict HTML Clean and Asset Cloner...');
+  console.log('Initiating Surgical Pixel Perfect Tilda Cloner...');
 
   const htmlUrl = 'https://webgency.tilda.ws/template6';
   const htmlRes = await fetch(htmlUrl);
@@ -81,7 +81,7 @@ async function run() {
   };
 
   for (const [filename, fallbackUrl] of Object.entries(customPhotos)) {
-    const localPath = path.join(ASSETS_DIR, filename);
+    const localPath = path.join(ASSETS_DIR, fallbackUrl ? filename : filename); // keep local name
     try {
       await downloadFile(fallbackUrl, localPath);
     } catch (e) {
@@ -89,14 +89,22 @@ async function run() {
     }
   }
 
-  // Swap names and dates as requested ("randomise the names and dates")
-  console.log('Replacing couple names and dates inside HTML...');
-  html = html.split('Alexa &amp; Richard').join('Charlotte &amp; William');
-  html = html.split('Alexa & Richard').join('Charlotte & William');
-  html = html.split('Alexa').join('Charlotte');
-  html = html.split('Richard').join('William');
-  html = html.split('14').join('20');
-  html = html.split('2025').join('2027'); // Futured for active countdown timer!
+  // SURGICAL replacement of couple names & dates only (prevents layout/record corruption)
+  console.log('Surgically replacing couple names and dates inside HTML...');
+  html = html.replace(/<title>Alexa &amp; Richard<\/title>/g, '<title>Charlotte &amp; William</title>');
+  html = html.replace(/<title>Alexa & Richard<\/title>/g, '<title>Charlotte & William</title>');
+  html = html.replace(/content="Alexa &amp; Richard"/g, 'content="Charlotte &amp; William"');
+  html = html.replace(/content="Alexa & Richard"/g, 'content="Charlotte & William"');
+  
+  // Replace names inside text nodes safely
+  html = html.replace(/>Alexa &amp; Richard<\/div>/g, '>Charlotte &amp; William</div>');
+  html = html.replace(/>Alexa & Richard<\/div>/g, '>Charlotte & William</div>');
+  html = html.replace(/>Alexa &amp; Richard<\/span>/g, '>Charlotte &amp; William</span>');
+  html = html.replace(/>Alexa & Richard<\/span>/g, '>Charlotte & William</span>');
+
+  // Replace date nodes safely without corrupting numbers elsewhere in the layout
+  html = html.replace(/<span class="tdr-num">14<\/span>/g, '<span class="tdr-num">20</span>');
+  html = html.replace(/<span class="tdr-num">2025<\/span>/g, '<span class="tdr-num">2027</span>');
 
   // STRICT PARSE ERROR FIX: Ensure there are proper whitespaces between packed attributes
   console.log('Fixing strict HTML attribute spacing to satisfy Vite...');
@@ -130,7 +138,7 @@ async function run() {
 
   const outHtmlPath = path.join(PROJECT_DIR, 'index.html');
   fs.writeFileSync(outHtmlPath, html);
-  console.log(`✅ Success! Strict Clean generated at ${outHtmlPath}`);
+  console.log(`✅ Success! Strict Surgical Clean generated at ${outHtmlPath}`);
 }
 
 run();
