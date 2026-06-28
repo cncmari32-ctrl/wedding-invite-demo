@@ -97,7 +97,7 @@ function App() {
                   <path d="M50 20 C40 40, 20 45, 50 80 C80 45, 60 40, 50 20 Z" />
                 </svg>
               </div>
-              <p className="font-serif text-3xl font-light text-tilda-text mb-4">Clara & Julian</p>
+              <p className="font-serif text-3xl font-light text-tilda-text mb-4">Alexa & Richard</p>
               <p className="font-sans text-[10px] uppercase tracking-widest text-tilda-accent/60">
                 Hope to see you there!
               </p>

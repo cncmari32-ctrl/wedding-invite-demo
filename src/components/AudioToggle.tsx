@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 
-const ROMANTIC_TRACK_URL = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"; // Beautiful chill ambient track
+const ROMANTIC_TRACK_URL = "https://pub-4dc8201144ca418fb604349c73e8c724.r2.dev/Forever%20and%20Ever%20and%20Always%20(The%20Wedding%20Song)%20-%20Ryan%20Mack%20(1).mp3"; // Beautiful wedding track
 
 export default function AudioToggle() {
   const [isPlaying, setIsPlaying] = useState(false);

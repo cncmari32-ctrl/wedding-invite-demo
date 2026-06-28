@@ -21,8 +21,8 @@ export default function HeroOverlay() {
 
       <div className="space-y-6">
         <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-tilda-text font-light tracking-tight leading-none">
-          Clara <br/>
-          <span className="text-tilda-accent italic font-light">&</span> Julian
+          Alexa <br/>
+          <span className="text-tilda-accent italic font-light">&</span> Richard
         </h1>
         <p className="font-sans text-xs md:text-sm tracking-[0.3em] uppercase text-tilda-accent font-semibold">
           are getting married!

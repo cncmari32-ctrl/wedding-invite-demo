@@ -114,9 +114,9 @@ export default function ScratchReveal() {
       {/* Target Content underneath (Date reveal) */}
       <div className="absolute inset-0 bg-[#FFFDFB] flex flex-col items-center justify-center text-center p-6 space-y-2">
         <span className="font-sans text-[10px] uppercase tracking-[0.25em] text-tilda-accent font-semibold block">The Date</span>
-        <h4 className="font-serif text-5xl font-light text-tilda-text">18</h4>
+        <h4 className="font-serif text-5xl font-light text-tilda-text">14</h4>
         <h5 className="font-serif text-2xl text-tilda-accent italic">September</h5>
-        <h6 className="font-sans text-xs tracking-widest text-tilda-text/50">2026</h6>
+        <h6 className="font-sans text-xs tracking-widest text-tilda-text/50">2027</h6>
       </div>
 
       {/* Canvas scratch card layer overlay */}

@@ -57,8 +57,8 @@ const PrintQR = () => {
         <p className="font-sans text-brand-accent tracking-[0.3em] text-xs uppercase mb-6 font-bold">
           Scan to Enter
         </p>
-        <h2 className="font-serif text-4xl mb-2">Sarah & John</h2>
-        <p className="font-sans text-sm text-black/50 mb-12">October 24, 2026</p>
+        <h2 className="font-serif text-4xl mb-2">Alexa & Richard</h2>
+        <p className="font-sans text-sm text-black/50 mb-12">September 14, 2027</p>
         
         <div ref={qrRef} className="mb-12" />
 

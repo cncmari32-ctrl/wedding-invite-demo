@@ -46,8 +46,8 @@ export default function TildaEnvelope({ onOpen }: TildaEnvelopeProps) {
 
             <div className="space-y-4">
               <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-tilda-text font-light tracking-tight">
-                Clara <br/>
-                <span className="text-tilda-accent italic">&</span> Julian
+                Alexa <br/>
+                <span className="text-tilda-accent italic">&</span> Richard
               </h1>
               <p className="font-sans text-[11px] uppercase tracking-[0.25em] text-tilda-accent/80">
                 Are getting married

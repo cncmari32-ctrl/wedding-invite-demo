@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 
-const WEDDING_DATE = new Date("2026-10-24T16:30:00").getTime();
+const WEDDING_DATE = new Date("2027-09-14T17:00:00").getTime();
 
 export default function Countdown() {
   const [timeLeft, setTimeLeft] = useState({

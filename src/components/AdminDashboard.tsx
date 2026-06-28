@@ -33,10 +33,10 @@ export default function AdminDashboard() {
     e.preventDefault();
     setError('');
     // Highly readable romantic passcode
-    if (passcode.toLowerCase() === 'love2026') {
+    if (passcode.toLowerCase() === 'love2027') {
       setIsAuthenticated(true);
     } else {
-      setError('Invalid passcode. Hint: "love2026"');
+      setError('Invalid passcode. Hint: "love2027"');
     }
   };
 
@@ -128,9 +128,9 @@ export default function AdminDashboard() {
                   
                   <form onSubmit={handleLogin} className="w-full max-w-xs space-y-4">
                     {error && <p className="text-xs text-red-600 font-sans">{error}</p>}
-                    <input
+                     <input
                       type="password"
-                      placeholder="Passcode: love2026"
+                      placeholder="Passcode: love2027"
                       className="w-full px-5 py-3 border border-brand-accent/25 rounded-full font-sans text-sm text-center bg-white focus:outline-none focus:border-brand-accent transition-colors text-brand-dark"
                       value={passcode}
                       onChange={(e) => setPasscode(e.target.value)}

@@ -46,7 +46,7 @@ export default function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
 
       // 3. WhatsApp Redirect
       const phoneNumber = "1234567890";
-      let text = `*RSVP for Clara & Julian's Wedding*%0A%0A`;
+      let text = `*RSVP for Alexa & Richard's Wedding*%0A%0A`;
       text += `*Guest:* ${name}%0A`;
       
       let statusText = 'Accepts with joy';

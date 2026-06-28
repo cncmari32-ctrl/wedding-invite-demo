@@ -17,11 +17,11 @@ const faqs = [
   },
   {
     question: "Will transportation be provided?",
-    answer: "Yes, we will provide guest shuttle services before the ceremony and after the reception between Villa Balbiano and major designated guest lodging hubs. Precise schedules will be shared closer to the date."
+    answer: "Yes, we will provide guest shuttle services before the ceremony and after the reception between Villa Borghese and major designated guest lodging hubs. Precise schedules will be shared closer to the date."
   },
   {
     question: "When should I RSVP by?",
-    answer: "We kindly ask that you submit your RSVP responses by **August 1, 2026**, so we can finalize our dining and seating arrangements with our caterers."
+    answer: "We kindly ask that you submit your RSVP responses by **August 1, 2027**, so we can finalize our dining and seating arrangements with our caterers."
   }
 ];
 
