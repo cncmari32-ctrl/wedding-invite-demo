@@ -281,7 +281,30 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script>
       }
     }
 
-    /* Keep the background video card fully visible on mobile breakpoints */
+    /* Keep the background video card fully visible on mobile breakpoints & bypass Tilda's mobile filters */
+    #rec2047601243 .t396__carrier {
+      background-image: none !important;
+      background-color: transparent !important;
+    }
+    #rec2047601243 .t396__filter {
+      background: transparent !important;
+      background-color: transparent !important;
+      opacity: 0 !important;
+    }
+    #rec2047601243 video {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      z-index: 1 !important;
+      pointer-events: none !important;
+    }
+
     @media screen and (max-width: 980px) {
       #rec2047601243 .tn-elem[data-elem-id="1776948113983"] {
         display: block !important;
@@ -369,43 +392,58 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
         carrier.innerHTML = ''; // clear carrier to avoid duplicates
         carrier.appendChild(myVideo);
         
-        // Smooth Interpolated Frame Scrubbing (prevents browser jitters!)
-        let targetTime = 0;
-        let currentTime = 0;
-        const section = document.querySelector('[data-artboard-recid="2047601243"]');
+        // Highly comprehensive mobile/tablet device checker (catches iPads, low-power-mode, and touch laptops too!)
+        const isMobile = window.innerWidth < 1025 || 
+                         /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                         (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
         
-        window.addEventListener('scroll', function() {
-          if (!section || !myVideo.duration) return;
-          const rect = section.getBoundingClientRect();
-          const viewportHeight = window.innerHeight;
-          const sectionHeight = rect.height;
-          const sectionTopOnPage = rect.top + window.scrollY;
+        if (isMobile) {
+          // MOBILE & TABLETS: Standard fluid loop autoplay on reveal (prevents black stuck frame GPU freezes)
+          myVideo.loop = true;
+          myVideo.setAttribute('loop', '');
+          myVideo.autoplay = true;
+          myVideo.setAttribute('autoplay', '');
+          myVideo.load();
+          // We also trigger video play when the user taps to open the envelope for maximum safety!
+        } else {
+          // DESKTOP: High-end smooth interpolated frame scrubbing
+          let targetTime = 0;
+          let currentTime = 0;
+          const section = document.querySelector('[data-artboard-recid="2047601243"]');
           
-          let progress = 0;
-          if (sectionTopOnPage < viewportHeight) {
-            // First section of the page (starts above the fold)
-            progress = window.scrollY / sectionHeight;
-          } else {
-            // Below the fold sections
-            const startScroll = sectionTopOnPage - viewportHeight;
-            progress = (window.scrollY - startScroll) / (sectionHeight + viewportHeight);
-          }
-          progress = Math.max(0, Math.min(1, progress)); // clamp between 0 and 1
-          
-          targetTime = progress * myVideo.duration;
-        }, { passive: true });
-        
-        function updateScrub() {
-          if (myVideo.duration) {
-            // Linear interpolation (lerp) for liquid smoothness
-            currentTime += (targetTime - currentTime) * 0.12; 
-            if (Math.abs(currentTime - myVideo.currentTime) > 0.01) {
-              myVideo.currentTime = currentTime;
+          window.addEventListener('scroll', function() {
+            if (!section || !myVideo.duration) return;
+            const rect = section.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const sectionHeight = rect.height;
+            const sectionTopOnPage = rect.top + window.scrollY;
+            
+            let progress = 0;
+            if (sectionTopOnPage < viewportHeight) {
+              // First section of the page (starts above the fold)
+              progress = window.scrollY / sectionHeight;
+            } else {
+              // Below the fold sections
+              const startScroll = sectionTopOnPage - viewportHeight;
+              progress = (window.scrollY - startScroll) / (sectionHeight + viewportHeight);
             }
+            progress = Math.max(0, Math.min(1, progress)); // clamp between 0 and 1
+            
+            targetTime = progress * myVideo.duration;
+          }, { passive: true });
+          
+          function updateScrub() {
+            if (myVideo.duration) {
+              // Linear interpolation (lerp) for liquid smoothness
+              currentTime += (targetTime - currentTime) * 0.12; 
+              if (Math.abs(currentTime - myVideo.currentTime) > 0.01) {
+                myVideo.currentTime = currentTime;
+              }
+            }
+            requestAnimationFrame(updateScrub);
           }
           requestAnimationFrame(updateScrub);
         }
-        requestAnimationFrame(updateScrub);
       }
 
       // 2. Buttery Smooth GSAP ScrollTrigger for Timeline Clouds
@@ -665,6 +703,14 @@ window.addEventListener('resize',function() {const cc=document.getElementById('t
           if (topPanel) { topPanel.style.transition = transitions; topPanel.style.transform = 'translateY(-100%)'; }
           if (waxSeal) { waxSeal.style.transition = transitions; waxSeal.style.transform = 'scale(1.25)'; waxSeal.style.opacity = '0'; }
           if (text) { text.style.transition = transitions; text.style.opacity = '0'; }
+          
+          // Trigger mobile background video play on user gesture!
+          const mobVid = document.getElementById('bgVideo2');
+          if (mobVid) {
+            mobVid.play().catch(function(err) {
+              console.log('Mobile play triggered, warning:', err);
+            });
+          }
           
           setTimeout(function() {
             envelopeBlock.style.display = 'none';
